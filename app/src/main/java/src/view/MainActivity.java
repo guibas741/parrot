@@ -1,4 +1,4 @@
-package src.controller;
+package src.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.android.parrot.parrot.R;
 
-public class MainController extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private Button btnCategorias, btnAddFrases, btnSair;
 
