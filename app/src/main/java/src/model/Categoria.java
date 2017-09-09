@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class Categoria {
     private int id;
     private String titulo;
-    private ArrayList<Frases> frases;
+    private ArrayList<Frase> frases;
 
-    public Categoria(int id, String titulo, ArrayList<Frases> frases) {
+    public Categoria(int id, String titulo, ArrayList<Frase> frases) {
         this.id = id;
         this.titulo = titulo;
         this.frases = frases;
@@ -36,11 +36,11 @@ public class Categoria {
         this.titulo = titulo;
     }
 
-    public ArrayList<Frases> getFrases() {
+    public ArrayList<Frase> getFrases() {
         return frases;
     }
 
-    public void setFrases(ArrayList<Frases> frases) {
+    public void setFrases(ArrayList<Frase> frases) {
         this.frases = frases;
     }
 }

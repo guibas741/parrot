@@ -4,22 +4,22 @@ package src.model;
  * Created by Windows on 04/09/2017.
  */
 
-public class Frases {
+public class Frase {
     private int id;
     private String fraseOriginal;
     private String fraseTraduzida;
-    private int favorita;
-    private Categoria categoria;
+    private boolean favorito;
+    private String categoria;
 
-    public Frases(int id, String fraseOriginal, String fraseTraduzida, int favorita, Categoria categoria) {
+    public Frase(int id, String fraseOriginal, String fraseTraduzida, boolean favorito, String categoria) {
         this.id = id;
         this.fraseOriginal = fraseOriginal;
         this.fraseTraduzida = fraseTraduzida;
-        this.favorita = favorita;
+        this.favorito = favorito;
         this.categoria = categoria;
     }
 
-    public Frases() {
+    public Frase() {
     }
 
     public int getId() {
@@ -46,19 +46,19 @@ public class Frases {
         this.fraseTraduzida = fraseTraduzida;
     }
 
-    public int getFavorita() {
-        return favorita;
-    }
-
-    public void setFavorita(int favorita) {
-        this.favorita = favorita;
-    }
-
-    public Categoria getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public boolean isFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
     }
 }
