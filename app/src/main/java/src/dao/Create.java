@@ -2,8 +2,11 @@ package src.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 import src.model.Frase;
 
@@ -56,6 +59,24 @@ public class Create extends SQLiteOpenHelper {
 
     }
 
+    public boolean insertFrase(Frase f) {
+        openDB();
+        try {
+            ContentValues cv = new ContentValues();
+            cv.put("original", f.getFraseOriginal());
+            cv.put("traducao", f.getFraseTraduzida());
+            cv.put("categoria", f.getCategoria());
+            cv.put("favorito", String.valueOf(f.isFavorito()));
+            db.insert(TABELA, null, cv);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.close();
+        }
+    }
+
     public boolean updateFrase(Frase f) {
         openDB();
         try {
@@ -75,17 +96,46 @@ public class Create extends SQLiteOpenHelper {
         }
     }
 
-    public boolean insertFrase(Frase f) {
+    public ArrayList<Frase> getFrases() {
         openDB();
+        ArrayList<Frase> fArray = new ArrayList<>();
+        String getFrases = "SELECT * FROM " + TABELA;
+
         try {
-            ContentValues cv = new ContentValues();
-            cv.put("original", f.getFraseOriginal());
-            cv.put("traducao", f.getFraseTraduzida());
-            cv.put("categoria", f.getCategoria());
-            cv.put("favorito", String.valueOf(f.isFavorito()));
-            db.insert(TABELA, null, cv);
+            Cursor c = db.rawQuery(getFrases, null);
+
+            if(c.moveToFirst()) {
+                do {
+                    Frase f = new Frase();
+                    f.setId(c.getInt(0));
+                    f.setFraseOriginal(c.getString(1));
+                    f.setFraseTraduzida(c.getString(2));
+                    f.setCategoria(c.getString(3));
+                    f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                    fArray.add(f);
+                } while(c.moveToNext());
+                c.close();
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            db.close();
+        }
+
+        return fArray;
+    }
+
+    public boolean deleteFrase(Frase f) {
+        openDB();
+
+        String deleteFrase = "id = " + f.getId();
+
+        try {
+            db.delete(TABELA, deleteFrase, null);
             return true;
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             return false;
         } finally {

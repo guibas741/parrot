@@ -13,7 +13,6 @@ import com.android.parrot.parrot.R;
 import java.util.ArrayList;
 
 import src.dao.Create;
-import src.dao.Read;
 import src.model.Frase;
 
 public class AdicionarFraseActivity extends AppCompatActivity {
@@ -63,7 +62,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Read r = new Read(getApplicationContext());
+                Create r = new Create(getApplicationContext());
                 ArrayList<Frase> fArray = r.getFrases();
                 for (int i = 0; i < fArray.size(); i++) {
                     Frase f = fArray.get(i);
