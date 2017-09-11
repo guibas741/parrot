@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="src.view.AdicionarFraseActivity"></activity>
+        <activity android:name="src.view.AdicionarFraseActivity" />
+        <activity android:name="src.view.listaFrasesActivity"></activity>
     </application>
 
 </manifest>

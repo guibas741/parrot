@@ -1,5 +1,6 @@
 package src.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -73,6 +74,8 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                             "\n FAVORITA = " + f.isFavorito() +
                             "\n -----------------------------------");
                 }
+
+                startActivity(new Intent(getApplicationContext(), listaFrasesActivity.class));
             }
         });
     }
