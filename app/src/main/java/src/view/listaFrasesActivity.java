@@ -47,6 +47,7 @@ public class listaFrasesActivity extends AppCompatActivity {
         }
     }
 
+
     public void criarListagem() {
         listaFrases = (ListView) findViewById(R.id.listaFrasesId);
         int indiceColunaId = cursor.getColumnIndex("id");

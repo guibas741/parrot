@@ -18,5 +18,8 @@ public class ItemFraseActivity extends RecyclerView.ViewHolder {
         btnEdit = (ImageView) itemView.findViewById(R.id.btnEditId);
 
         frase = (TextView) itemView.findViewById(R.id.itemFraseId);
+
+
+
     }
 }
