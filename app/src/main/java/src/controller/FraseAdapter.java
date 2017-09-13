@@ -14,6 +14,7 @@ import java.util.List;
 
 import src.dao.Create;
 import src.model.Frase;
+import src.util.ItemClickSupport;
 import src.view.ItemFraseActivity;
 
 /**
@@ -24,6 +25,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
 
     private final List<Frase> frases;
     private int index;
+
     public FraseAdapter(List<Frase> frases) {
         this.frases = frases;
     }
@@ -35,9 +37,10 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
     }
 
     @Override
-    public void onBindViewHolder(ItemFraseActivity holder, int position) {
+    public void onBindViewHolder( ItemFraseActivity holder, int position) {
         holder.frase.setText(frases.get(position).getFraseOriginal());
         final int index = position;
+
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
 
@@ -46,7 +49,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
                 final View view = v;
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Confirmação")
-                        .setMessage("Tem certeza que deseja excluir este cliente?")
+                        .setMessage("Tem certeza que deseja excluir esta frase?")
                         .setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -63,6 +66,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
 
             }
         });
+       // clicar(holder, position);
 
     }
 
@@ -75,6 +79,17 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
         int position = frases.indexOf(f);
         frases.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void clicar(ItemFraseActivity holder, int position, RecyclerView recyclerView) {
+        final ItemFraseActivity fHolder =  holder;
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                fHolder.frase.setText(frases.get(position).getFraseTraduzida());
+                Toast.makeText(v.getContext(), "CLICOU " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

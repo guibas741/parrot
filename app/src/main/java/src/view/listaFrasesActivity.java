@@ -9,8 +9,10 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 
 import src.controller.FraseAdapter;
 import src.dao.Create;
+import src.model.Frase;
+import src.util.ItemClickSupport;
 
 public class listaFrasesActivity extends AppCompatActivity {
 
@@ -25,8 +29,9 @@ public class listaFrasesActivity extends AppCompatActivity {
     private ListView listaFrases;
     private Cursor cursor;
     private ArrayAdapter<String> ad;
-    private  RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private FraseAdapter adapter;
+    private ItemFraseActivity holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,22 @@ public class listaFrasesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_frases);
         buscarDados();
         configurarRecycler();
-        //criarListagem();
+
+
+
+        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+                Frase f = new Frase();
+                ArrayList<Frase> frases = new ArrayList<Frase>();
+                Create dao = new Create(getApplicationContext());
+                frases = dao.getFrases();
+                f = frases.get(position);
+                //holder.frase.setText(f.getFraseTraduzida());
+                Toast.makeText(v.getContext(), "TRADUÇÃO =  " + f.getFraseTraduzida(), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
     }
 
@@ -81,8 +101,6 @@ public class listaFrasesActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
 
     private void configurarRecycler() {
         // Configurando o gerenciador de layout para ser uma lista.
