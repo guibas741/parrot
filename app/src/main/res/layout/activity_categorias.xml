@@ -6,4 +6,84 @@
     android:layout_height="match_parent"
     tools:context="src.view.CategoriasActivity">
 
+    <Button
+        android:id="@+id/btnSaudeId"
+        android:layout_width="142dp"
+        android:layout_height="51dp"
+        android:text="Saude"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.076"
+        tools:layout_editor_absoluteX="94dp" />
+
+    <Button
+        android:id="@+id/btnAlimentacao"
+        android:layout_width="151dp"
+        android:layout_height="52dp"
+        android:text="Alimentação"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnSaudeId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintVertical_bias="0.07"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        tools:layout_editor_absoluteX="102dp" />
+
+    <Button
+        android:id="@+id/btnLocalizacaoId"
+        android:layout_width="153dp"
+        android:layout_height="49dp"
+        android:text="Localização"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnAlimentacao"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintVertical_bias="0.068"
+        tools:layout_editor_absoluteX="98dp" />
+
+    <Button
+        android:id="@+id/btnComumId"
+        android:layout_width="146dp"
+        android:layout_height="45dp"
+        android:text="Comum"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnLocalizacaoId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.119"
+        tools:layout_editor_absoluteX="90dp" />
+
+    <Button
+        android:id="@+id/btnPersonalizadosId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personalizados"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnComumId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.173" />
 </android.support.constraint.ConstraintLayout>

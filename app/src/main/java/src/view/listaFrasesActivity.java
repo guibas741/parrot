@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
@@ -32,6 +33,7 @@ public class listaFrasesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FraseAdapter adapter;
     private ItemFraseActivity holder;
+    private TextView traducaoSelecionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class listaFrasesActivity extends AppCompatActivity {
         buscarDados();
         configurarRecycler();
 
-
+        traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
 
         ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
             @Override
@@ -50,6 +52,7 @@ public class listaFrasesActivity extends AppCompatActivity {
                 Create dao = new Create(getApplicationContext());
                 frases = dao.getFrases();
                 f = frases.get(position);
+                traducaoSelecionada.setText(f.getFraseTraduzida());
                 //holder.frase.setText(f.getFraseTraduzida());
                 Toast.makeText(v.getContext(), "TRADUÇÃO =  " + f.getFraseTraduzida(), Toast.LENGTH_SHORT).show();
                 return false;
