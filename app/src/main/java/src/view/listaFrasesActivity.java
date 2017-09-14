@@ -50,7 +50,7 @@ public class listaFrasesActivity extends AppCompatActivity {
                 Frase f = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
                 Create dao = new Create(getApplicationContext());
-                frases = dao.getFrases();
+                frases = dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
                 f = frases.get(position);
                 traducaoSelecionada.setText(f.getFraseTraduzida());
                 //holder.frase.setText(f.getFraseTraduzida());
@@ -113,7 +113,7 @@ public class listaFrasesActivity extends AppCompatActivity {
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         Create dao = new Create(this);
-        adapter = new FraseAdapter(dao.getFrases());
+        adapter = new FraseAdapter(dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }

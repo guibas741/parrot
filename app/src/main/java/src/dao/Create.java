@@ -127,6 +127,38 @@ public class Create extends SQLiteOpenHelper {
         return fArray;
     }
 
+    public ArrayList<Frase> getFrasesCategoria(String categoria) {
+        openDB();
+        ArrayList<Frase> fArray = new ArrayList<>();
+        String getFrases = "SELECT * FROM " + TABELA + " WHERE categoria = '" + categoria + "'" ;
+
+        try {
+            Cursor c = db.rawQuery(getFrases, null);
+
+            if(c.moveToFirst()) {
+                do {
+                    Frase f = new Frase();
+                    f.setId(c.getInt(0));
+                    f.setFraseOriginal(c.getString(1));
+                    f.setFraseTraduzida(c.getString(2));
+                    f.setCategoria(c.getString(3));
+                    f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                    fArray.add(f);
+                } while(c.moveToNext());
+                c.close();
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            db.close();
+        }
+
+        return fArray;
+    }
+
+
     public boolean deleteFrase(Frase f) {
         openDB();
 
