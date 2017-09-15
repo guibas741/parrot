@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name="src.view.AdicionarFraseActivity" />
-        <activity android:name="src.view.listaFrasesActivity" />
+        <activity android:name="src.view.ListaFrasesActivity" />
         <activity android:name="src.view.ItemFraseActivity" />
         <activity android:name="src.view.CategoriasActivity"></activity>
     </application>

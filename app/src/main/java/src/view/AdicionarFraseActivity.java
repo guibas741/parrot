@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
@@ -19,8 +21,9 @@ import src.model.Frase;
 public class AdicionarFraseActivity extends AppCompatActivity {
 
     private Button btnAddFrase, btnListar;
-    private EditText txtFraseOriginal, txtFraseTraduzida, txtCategoria;
+    private EditText txtFraseOriginal, txtFraseTraduzida;
     private CheckBox favorito;
+    private Spinner spnCategoria;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +34,19 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         txtFraseOriginal = (EditText) findViewById(R.id.txtFraseOriginalId);
         txtFraseTraduzida = (EditText) findViewById(R.id.txtFraseTraduzidaId);
-        txtCategoria = (EditText) findViewById(R.id.txtCategoriaId);
 
         favorito = (CheckBox) findViewById(R.id.favoritoId);
 
         Create c = new Create(getApplicationContext());
         c.createTable();
+
+        spnCategoria = (Spinner) findViewById(R.id.spnCategoriaId);
+
+        String[] items = new String[]{"saude", "alimentacao", "localizacao", "comum", "personalizado"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+
+        spnCategoria.setAdapter(adapter);
 
 
         btnAddFrase.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +55,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 Frase f = new Frase();
                 f.setFraseOriginal(txtFraseOriginal.getText().toString());
                 f.setFraseTraduzida(txtFraseTraduzida.getText().toString());
-                f.setCategoria(txtCategoria.getText().toString());
+                f.setCategoria(spnCategoria.getSelectedItem().toString());
                 f.setFavorito(favorito.isChecked());
 
                 Create c = new Create(getApplicationContext());
@@ -75,7 +85,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                             "\n -----------------------------------");
                 }
 
-                startActivity(new Intent(getApplicationContext(), listaFrasesActivity.class));
+                startActivity(new Intent(getApplicationContext(), ListaFrasesActivity.class));
             }
         });
     }

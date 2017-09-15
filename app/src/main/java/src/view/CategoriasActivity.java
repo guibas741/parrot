@@ -50,13 +50,13 @@ public class CategoriasActivity extends AppCompatActivity implements View.OnClic
                 categoriaSelecionada = "localizacao";
                 break;
             case btnPersonalizadosId:
-                categoriaSelecionada = "personalizados";
+                categoriaSelecionada = "personalizado";
                 break;
             case btnComumId:
                 categoriaSelecionada = "comum";
                 break;
 
         }
-        startActivity(new Intent(new Intent(CategoriasActivity.this,listaFrasesActivity.class)));
+        startActivity(new Intent(CategoriasActivity.this, ListaFrasesActivity.class));
     }
 }

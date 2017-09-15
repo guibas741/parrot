@@ -24,7 +24,7 @@ import src.dao.Create;
 import src.model.Frase;
 import src.util.ItemClickSupport;
 
-public class listaFrasesActivity extends AppCompatActivity {
+public class ListaFrasesActivity extends AppCompatActivity {
 
     private SQLiteDatabase db;
     private ListView listaFrases;
