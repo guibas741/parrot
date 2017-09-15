@@ -8,7 +8,13 @@ import android.widget.Button;
 
 import com.android.parrot.parrot.R;
 
-public class CategoriasActivity extends AppCompatActivity {
+import static com.android.parrot.parrot.R.id.btnAlimentacaoId;
+import static com.android.parrot.parrot.R.id.btnComumId;
+import static com.android.parrot.parrot.R.id.btnLocalizacaoId;
+import static com.android.parrot.parrot.R.id.btnPersonalizadosId;
+import static com.android.parrot.parrot.R.id.btnSaudeId;
+
+public class CategoriasActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnSaude, btnAlimentacao, btnLocalizacao, btnPersonalizados, btnComum;
     public static String categoriaSelecionada;
@@ -17,26 +23,40 @@ public class CategoriasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias);
 
-        btnSaude = (Button) findViewById(R.id.btnSaudeId);
-        btnAlimentacao = (Button) findViewById(R.id.btnAlimentacaoId);
-        btnLocalizacao = (Button) findViewById(R.id.btnLocalizacaoId);
-        btnPersonalizados = (Button) findViewById(R.id.btnPersonalizadosId);
-        btnComum = (Button) findViewById(R.id.btnComumId);
+        btnSaude = (Button) findViewById(btnSaudeId);
+        btnAlimentacao = (Button) findViewById(btnAlimentacaoId);
+        btnLocalizacao = (Button) findViewById(btnLocalizacaoId);
+        btnPersonalizados = (Button) findViewById(btnPersonalizadosId);
+        btnComum = (Button) findViewById(btnComumId);
 
-        btnSaude.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(new Intent(CategoriasActivity.this,listaFrasesActivity.class)));
+        btnSaude.setOnClickListener(this);
+        btnAlimentacao.setOnClickListener(this);
+        btnLocalizacao.setOnClickListener(this);
+        btnPersonalizados.setOnClickListener(this);
+        btnComum.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case btnSaudeId:
                 categoriaSelecionada = "saude";
-            }
-        });
-
-        btnAlimentacao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(new Intent(CategoriasActivity.this,listaFrasesActivity.class)));
+                break;
+            case btnAlimentacaoId:
                 categoriaSelecionada = "alimentacao";
-            }
-        });
+                break;
+            case btnLocalizacaoId:
+                categoriaSelecionada = "localizacao";
+                break;
+            case btnPersonalizadosId:
+                categoriaSelecionada = "personalizados";
+                break;
+            case btnComumId:
+                categoriaSelecionada = "comum";
+                break;
+
+        }
+        startActivity(new Intent(new Intent(CategoriasActivity.this,listaFrasesActivity.class)));
     }
 }
