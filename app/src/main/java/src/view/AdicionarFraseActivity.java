@@ -20,7 +20,7 @@ import src.model.Frase;
 
 public class AdicionarFraseActivity extends AppCompatActivity {
 
-    private Button btnAddFrase, btnListar;
+    private Button btnAddFrase, btnListar, btnTraduzir;
     private EditText txtFraseOriginal, txtFraseTraduzida;
     private CheckBox favorito;
     private Spinner spnCategoria;
@@ -31,6 +31,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         btnAddFrase = (Button) findViewById(R.id.btnAddFrasesId);
         btnListar = (Button) findViewById(R.id.btnListarId);
+        btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
 
         txtFraseOriginal = (EditText) findViewById(R.id.txtFraseOriginalId);
         txtFraseTraduzida = (EditText) findViewById(R.id.txtFraseTraduzidaId);
@@ -86,6 +87,13 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 }
 
                 startActivity(new Intent(getApplicationContext(), ListaFrasesActivity.class));
+            }
+        });
+
+        btnTraduzir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
             }
         });
     }
