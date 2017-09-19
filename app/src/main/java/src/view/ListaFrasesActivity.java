@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.android.parrot.parrot.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import src.controller.FraseAdapter;
 import src.dao.Create;
@@ -34,6 +37,8 @@ public class ListaFrasesActivity extends AppCompatActivity {
     private FraseAdapter adapter;
     private ItemFraseActivity holder;
     private TextView traducaoSelecionada;
+    private ImageView btnAudio;
+    private TextToSpeech tts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
         configurarRecycler();
 
         traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
+        btnAudio = (ImageView) findViewById(R.id.btnAudioId);
 
         ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
             @Override
@@ -59,7 +65,26 @@ public class ListaFrasesActivity extends AppCompatActivity {
             }
         });
 
+        btnAudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tts.speak(traducaoSelecionada.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                Toast.makeText(v.getContext(), "APERTO", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR) {
+                    tts.setLanguage(Locale.ENGLISH);
+                }
+            }
+        });
+
     }
+
 
     public void buscarDados() {
         try {
