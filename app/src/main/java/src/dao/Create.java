@@ -158,6 +158,10 @@ public class Create extends SQLiteOpenHelper {
         return fArray;
     }
 
+    public boolean isFavorito(Frase f) {
+        return f.isFavorito();
+    }
+
 
     public boolean deleteFrase(Frase f) {
         openDB();

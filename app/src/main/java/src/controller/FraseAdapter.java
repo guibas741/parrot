@@ -72,6 +72,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Favoritou", Toast.LENGTH_SHORT).show();
+
             }
         });
 
