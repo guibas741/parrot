@@ -1,5 +1,6 @@
 package src.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
     private CheckBox favorito;
     private Spinner spnCategoria;
     private Util util;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +114,14 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
 
     public class JSONTask extends AsyncTask<String, String, String> {
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = new ProgressDialog(AdicionarFraseActivity.this);
+            pd.setMessage("loading");
+            pd.show();
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -177,6 +187,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            if (pd != null) pd.dismiss();
             txtFraseTraduzida.setText(result.toString());
         }
     }
