@@ -46,12 +46,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/listaFrasesId"
-        app:layout_constraintHorizontal_bias="0.739"
-        app:layout_constraintLeft_toRightOf="@+id/traducaoSelecionadaId"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51"
-        app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
+        app:layout_constraintVertical_bias="0.042"
+        app:srcCompat="@mipmap/ic_play" />
 </android.support.constraint.ConstraintLayout>

@@ -26,6 +26,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
     private final List<Frase> frases;
     private int index;
 
+
     public FraseAdapter(List<Frase> frases) {
         this.frases = frases;
     }
@@ -67,6 +68,12 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
             }
         });
        // clicar(holder, position);
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Favoritou", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

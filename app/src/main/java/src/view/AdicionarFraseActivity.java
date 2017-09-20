@@ -141,31 +141,13 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 while((line = reader.readLine()) != null) {
                     buffer.append(line);
                 }
-
-                /*String finalJson = buffer.toString();
-
-                JSONObject parentObject = new JSONObject(finalJson);
-                JSONArray parentArray = parentObject.getJSONArray("movies");
-
-                JSONObject finalObject = parentArray.getJSONObject(0);
-
-                String movieName = finalObject.getString("movie");
-                int year = finalObject.getInt("year");
-
-                return movieName + " - " + year;*/
-
                 //PARSIN JSON WITHOUT KEY
                 String finalJson = buffer.toString();
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray aa = parentObject.getJSONArray("text");
                 String foo = aa.getString(0);
-                //int aa = itemArray.length();
-                //String foo = itemArray.getString(0);
 
-                System.out.println("JSON = ");
-
-
-                return foo;//buffer.toString();
+                return foo;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
