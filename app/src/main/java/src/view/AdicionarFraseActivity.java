@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 import src.dao.Create;
 import src.model.Frase;
+import src.util.Util;
 
 public class AdicionarFraseActivity extends AppCompatActivity {
 
@@ -36,11 +37,13 @@ public class AdicionarFraseActivity extends AppCompatActivity {
     private EditText txtFraseOriginal, txtFraseTraduzida;
     private CheckBox favorito;
     private Spinner spnCategoria;
+    private Util util;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_frase);
 
+        util = new Util();
         btnAddFrase = (Button) findViewById(R.id.btnAddFrasesId);
         btnListar = (Button) findViewById(R.id.btnListarId);
         btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
@@ -105,8 +108,14 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         btnTraduzir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask().execute("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20170916T163659Z.3c511aee14a614cd.2b9d38510d2b13f7f7efd9b2c6de74690eeec26f&text="+txtFraseOriginal.getText().toString()+"&lang=pt-en");
 
+                boolean connected = util.isConnected(v.getContext());
+                if(connected) {
+                    new JSONTask().execute("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20170916T163659Z.3c511aee14a614cd.2b9d38510d2b13f7f7efd9b2c6de74690eeec26f&text=" + txtFraseOriginal.getText().toString() + "&lang=pt-en");
+                } else {
+                    Toast.makeText(v.getContext(), "É necessário estar conectado na internet para utilizar a funcionalidade " +
+                            "de tradução", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
