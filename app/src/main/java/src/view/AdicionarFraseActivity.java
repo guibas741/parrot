@@ -112,8 +112,9 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 boolean connected = util.isConnected(v.getContext());
                 if(connected) {
                     String fraseString = txtFraseOriginal.getText().toString();
+                    String fraseFinal = fraseString.replace(" ", "%20");
                     String idiomas = "pt-en";
-                    String yandexUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+util.KEY+"&text=" + fraseString + "&lang=" + idiomas;
+                    String yandexUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+util.KEY+"&text=" + fraseFinal + "&lang=" + idiomas;
                     new JSONTask().execute(yandexUrl);
                 } else {
                     Toast.makeText(v.getContext(), "É necessário estar conectado na internet para utilizar a funcionalidade " +
