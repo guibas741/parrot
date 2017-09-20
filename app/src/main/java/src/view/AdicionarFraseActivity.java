@@ -25,7 +25,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import src.dao.Create;
 import src.model.Frase;
@@ -33,7 +32,7 @@ import src.util.Util;
 
 public class AdicionarFraseActivity extends AppCompatActivity {
 
-    private Button btnAddFrase, btnListar, btnTraduzir;
+    private Button btnAddFrase, btnCategorias, btnTraduzir;
     private EditText txtFraseOriginal, txtFraseTraduzida;
     private CheckBox favorito;
     private Spinner spnCategoria;
@@ -45,7 +44,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         util = new Util();
         btnAddFrase = (Button) findViewById(R.id.btnAddFrasesId);
-        btnListar = (Button) findViewById(R.id.btnListarId);
+        btnCategorias = (Button) findViewById(R.id.btnCategoriaId);
         btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
 
         txtFraseOriginal = (EditText) findViewById(R.id.txtFraseOriginalId);
@@ -85,23 +84,10 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             }
         });
 
-        btnListar.setOnClickListener(new View.OnClickListener() {
+        btnCategorias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Create r = new Create(getApplicationContext());
-                ArrayList<Frase> fArray = r.getFrases();
-                for (int i = 0; i < fArray.size(); i++) {
-                    Frase f = fArray.get(i);
-                    System.out.println("ID = " + f.getId() +
-                            "\n FRASE = " + f.getFraseOriginal() +
-                            "\n TRADUCAO = " + f.getFraseTraduzida() +
-                            "\n CATEGORIA = " + f.getCategoria() +
-                            "\n FAVORITA = " + f.isFavorito() +
-                            "\n -----------------------------------");
-                }
-
-                startActivity(new Intent(getApplicationContext(), ListaFrasesActivity.class));
+                startActivity(new Intent(getApplicationContext(), CategoriasActivity.class));
             }
         });
 
