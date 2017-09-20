@@ -10,6 +10,8 @@ import android.net.NetworkInfo;
 
 public class Util {
 
+    public static String KEY = "trnsl.1.1.20170916T163659Z.3c511aee14a614cd.2b9d38510d2b13f7f7efd9b2c6de74690eeec26f";
+
     public boolean isConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
