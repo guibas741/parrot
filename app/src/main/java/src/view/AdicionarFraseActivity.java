@@ -119,7 +119,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pd = new ProgressDialog(AdicionarFraseActivity.this);
-            pd.setMessage("loading");
+            pd.setMessage("Traduzindo");
             pd.show();
         }
 
