@@ -98,6 +98,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 boolean connected = util.isConnected(v.getContext());
+
                 if(connected) {
                     String fraseString = txtFraseOriginal.getText().toString();
                     String fraseFinal = fraseString.replace(" ", "%20");

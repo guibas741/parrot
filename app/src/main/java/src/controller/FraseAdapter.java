@@ -41,7 +41,9 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
     public void onBindViewHolder( ItemFraseActivity holder, int position) {
         holder.frase.setText(frases.get(position).getFraseOriginal());
         final int index = position;
-
+        Frase f = frases.get(position);
+        if(f.isFavorito()) holder.btnEdit.setVisibility(View.VISIBLE);
+        else holder.btnEdit.setVisibility(View.INVISIBLE);
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
 
@@ -95,7 +97,6 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 fHolder.frase.setText(frases.get(position).getFraseTraduzida());
-                Toast.makeText(v.getContext(), "CLICOU " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
