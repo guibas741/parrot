@@ -10,12 +10,12 @@ import com.android.parrot.parrot.R;
 public class ItemFraseActivity extends RecyclerView.ViewHolder {
 
     public TextView frase;
-    public ImageView btnDelete, btnEdit;
-
+    public ImageView btnDelete, btnFavorito;
+    
     public ItemFraseActivity(View itemView) {
         super(itemView);
         btnDelete = (ImageView) itemView.findViewById(R.id.btnDeleteId);
-        btnEdit = (ImageView) itemView.findViewById(R.id.btnEditId);
+        btnFavorito = (ImageView) itemView.findViewById(R.id.btnFavoritoId);
 
         frase = (TextView) itemView.findViewById(R.id.itemFraseId);
 

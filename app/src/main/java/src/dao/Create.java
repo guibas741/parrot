@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -95,6 +97,34 @@ public class Create extends SQLiteOpenHelper {
             db.close();
         }
     }
+
+    public String favoritar(Frase f, View view) {
+        openDB();
+        String fav = "";
+        try {
+            ContentValues cv = new ContentValues();
+            String where = "id = " + f.getId();
+
+            if(f.isFavorito()) {
+                Toast.makeText(view.getContext(), "Era favorito", Toast.LENGTH_LONG).show();
+                cv.put("favorito", "false");
+                fav = "false";
+            } else {
+                Toast.makeText(view.getContext(), "Era falso", Toast.LENGTH_LONG).show();
+                cv.put("favorito", "true");
+                fav =  "true";
+            }
+            db.update(TABELA, cv, where, null);
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            return fav;
+        } finally {
+            db.close();
+        }
+        return fav;
+    }
+
 
     public ArrayList<Frase> getFrases() {
         openDB();

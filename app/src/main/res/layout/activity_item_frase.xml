@@ -41,7 +41,7 @@
         app:srcCompat="@android:drawable/ic_delete" />
 
     <ImageView
-        android:id="@+id/btnEditId"
+        android:id="@+id/btnFavoritoId"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginBottom="8dp"
