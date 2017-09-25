@@ -89,7 +89,6 @@ public class ListaFrasesActivity extends AppCompatActivity {
                                 Create dao = new Create(view.getContext());
                                 dao.favoritar(fraseSelecionada);
                                 showStar(fraseSelecionada);
-                                recyclerView.invalidate();
                             }
                         }).setNegativeButton("Cancelar", null).create() .show();
 
