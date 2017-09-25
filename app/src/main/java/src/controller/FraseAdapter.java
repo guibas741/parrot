@@ -17,9 +17,6 @@ import src.model.Frase;
 import src.util.ItemClickSupport;
 import src.view.ItemFraseActivity;
 
-import static android.R.drawable.star_big_off;
-import static android.R.drawable.star_big_on;
-
 /**
  * Created by Windows on 11/09/2017.
  */
@@ -46,9 +43,6 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
         final Frase f = frases.get(position);
         final ItemFraseActivity h = holder;
 
-        if(f.isFavorito()) holder.btnFavorito.setImageResource(star_big_on);
-        else holder.btnFavorito.setImageResource(star_big_off);
-
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -73,16 +67,6 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
 
             }
         });
-       // clicar(holder, position);
-        holder.btnFavorito.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Create dao = new Create(v.getContext());
-                String favoritou = dao.favoritar(f, v);
-                if(!"".equals(favoritou)) favoritarFrase(f);
-            }
-        });
-
     }
 
     @Override
@@ -105,10 +89,4 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
             }
         });
     }
-
-    public void favoritarFrase(Frase f){
-        frases.set(frases.indexOf(f), f);
-        notifyItemChanged(frases.indexOf(f));
-    }
-
 }

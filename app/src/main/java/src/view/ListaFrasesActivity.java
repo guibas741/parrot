@@ -1,10 +1,12 @@
 package src.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,7 +39,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
     private FraseAdapter adapter;
     private ItemFraseActivity holder;
     private TextView traducaoSelecionada;
-    private ImageView btnAudio;
+    private ImageView btnAudio, btnFav;
     private TextToSpeech tts;
 
     @Override
@@ -49,18 +51,48 @@ public class ListaFrasesActivity extends AppCompatActivity {
 
         traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
         btnAudio = (ImageView) findViewById(R.id.btnAudioId);
+        btnFav = (ImageView) findViewById(R.id.favId);
 
-        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
-            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Frase f = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
                 Create dao = new Create(getApplicationContext());
                 frases = dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
                 f = frases.get(position);
                 traducaoSelecionada.setText(f.getFraseTraduzida());
-                //holder.frase.setText(f.getFraseTraduzida());
-                Toast.makeText(v.getContext(), "TRADUÇÃO =  " + f.getFraseTraduzida(), Toast.LENGTH_SHORT).show();
+                showStar(f);
+            }
+        });
+
+        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+
+
+            @Override
+            public boolean onItemLongClicked(final RecyclerView recyclerView, int position, View v) {
+                final View view = v;
+                Frase frase = new Frase();
+                ArrayList<Frase> frases = new ArrayList<Frase>();
+                Create dao1 = new Create(v.getContext());
+                frases = dao1.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
+                frase = frases.get(position);
+                final Frase fraseSelecionada = frase;
+                String pergunta = frase.isFavorito() == true ? " remover dos favoritos " : " favoritar ";
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Confirmação")
+                        .setMessage("Tem certeza que deseja" + pergunta + " esta frase?")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Create dao = new Create(view.getContext());
+                                dao.favoritar(fraseSelecionada);
+                                showStar(fraseSelecionada);
+                                recyclerView.invalidate();
+                            }
+                        }).setNegativeButton("Cancelar", null).create() .show();
+
                 return false;
             }
         });
@@ -141,5 +173,10 @@ public class ListaFrasesActivity extends AppCompatActivity {
         adapter = new FraseAdapter(dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+    }
+
+    public void showStar(Frase f) {
+        if(f.isFavorito()) btnFav.setVisibility(View.VISIBLE);
+        else btnFav.setVisibility(View.INVISIBLE);
     }
 }

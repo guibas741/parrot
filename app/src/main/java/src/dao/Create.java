@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -98,31 +96,25 @@ public class Create extends SQLiteOpenHelper {
         }
     }
 
-    public String favoritar(Frase f, View view) {
-        openDB();
-        String fav = "";
+    public void favoritar(Frase f) {
+       // openDB();
+
         try {
             ContentValues cv = new ContentValues();
             String where = "id = " + f.getId();
 
-            if(f.isFavorito()) {
-                Toast.makeText(view.getContext(), "Era favorito", Toast.LENGTH_LONG).show();
-                cv.put("favorito", "false");
-                fav = "false";
-            } else {
-                Toast.makeText(view.getContext(), "Era falso", Toast.LENGTH_LONG).show();
-                cv.put("favorito", "true");
-                fav =  "true";
-            }
+            String favoritou = f.isFavorito() == false ? "true" : "false";
+            cv.put("favorito", favoritou);
+
             db.update(TABELA, cv, where, null);
 
         } catch(Exception e) {
             e.printStackTrace();
-            return fav;
-        } finally {
-            db.close();
+
+       // } finally {
+         //   db.close();
         }
-        return fav;
+
     }
 
 
@@ -186,6 +178,21 @@ public class Create extends SQLiteOpenHelper {
         }
 
         return fArray;
+    }
+
+    public void favTest(Frase f) {
+        int id = f.getId();
+        String getFraseSelecionada = "SELECT * FROM " + TABELA + " WHERE id = " + id;
+        try {
+            Cursor c = db.rawQuery(getFraseSelecionada, null);
+
+            if(c.moveToNext()) {
+                boolean favorito = f.isFavorito() == true ? false : true;
+                f.setFavorito(favorito);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isFavorito(Frase f) {
