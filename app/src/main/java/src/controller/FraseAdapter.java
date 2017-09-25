@@ -12,7 +12,7 @@ import com.android.parrot.parrot.R;
 
 import java.util.List;
 
-import src.dao.Create;
+import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.ItemClickSupport;
 import src.view.ItemFraseActivity;
@@ -54,7 +54,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
                         .setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Create c = new Create(view.getContext());
+                                DaoFrase c = new DaoFrase(view.getContext());
                                 Frase f = frases.get(index);
                                 if(c.deleteFrase(f)) {
                                     removerFrase(f);

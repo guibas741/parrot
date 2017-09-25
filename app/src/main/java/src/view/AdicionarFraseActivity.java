@@ -27,7 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import src.dao.Create;
+import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.Util;
 
@@ -54,7 +54,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         favorito = (CheckBox) findViewById(R.id.favoritoId);
 
-        Create c = new Create(getApplicationContext());
+        DaoFrase c = new DaoFrase(getApplicationContext());
         c.createTable();
 
         spnCategoria = (Spinner) findViewById(R.id.spnCategoriaId);
@@ -75,7 +75,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 f.setCategoria(spnCategoria.getSelectedItem().toString());
                 f.setFavorito(favorito.isChecked());
 
-                Create c = new Create(getApplicationContext());
+                DaoFrase c = new DaoFrase(getApplicationContext());
 
                 if(c.insertFrase(f)) {
                     Toast.makeText(getApplicationContext(), "Frase inserida com sucesso", Toast.LENGTH_LONG).show();

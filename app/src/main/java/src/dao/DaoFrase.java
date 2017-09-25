@@ -14,7 +14,7 @@ import src.model.Frase;
  * Created by Windows on 09/09/2017.
  */
 
-public class Create extends SQLiteOpenHelper {
+public class DaoFrase extends SQLiteOpenHelper {
 
     private static final String NOME_DB = "parrotDb";
     private static final int VERSAO_DB = 1;
@@ -23,21 +23,17 @@ public class Create extends SQLiteOpenHelper {
     private Context mContext;
     private SQLiteDatabase db;
 
-    public Create(Context context) {
+    public DaoFrase(Context context) {
         super(context, NOME_DB, null, VERSAO_DB);
         this.mContext = context;
         db = getWritableDatabase();
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-
-    }
+    public void onCreate(SQLiteDatabase db) {}
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
     public boolean createTable() {
         openDB();
@@ -97,7 +93,7 @@ public class Create extends SQLiteOpenHelper {
     }
 
     public void favoritar(Frase f) {
-       // openDB();
+        openDB();
 
         try {
             ContentValues cv = new ContentValues();
@@ -111,8 +107,8 @@ public class Create extends SQLiteOpenHelper {
         } catch(Exception e) {
             e.printStackTrace();
 
-       // } finally {
-         //   db.close();
+        } finally {
+            db.close();
         }
 
     }

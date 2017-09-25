@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import src.controller.FraseAdapter;
-import src.dao.Create;
+import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.ItemClickSupport;
 
@@ -46,7 +45,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_frases);
-        buscarDados();
+        //buscarDados();
         configurarRecycler();
 
         traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
@@ -59,7 +58,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Frase f = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
-                Create dao = new Create(getApplicationContext());
+                DaoFrase dao = new DaoFrase(getApplicationContext());
                 frases = dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
                 f = frases.get(position);
                 traducaoSelecionada.setText(f.getFraseTraduzida());
@@ -68,14 +67,12 @@ public class ListaFrasesActivity extends AppCompatActivity {
         });
 
         ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
-
-
             @Override
             public boolean onItemLongClicked(final RecyclerView recyclerView, int position, View v) {
                 final View view = v;
                 Frase frase = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
-                Create dao1 = new Create(v.getContext());
+                DaoFrase dao1 = new DaoFrase(v.getContext());
                 frases = dao1.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
                 frase = frases.get(position);
                 final Frase fraseSelecionada = frase;
@@ -86,7 +83,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Create dao = new Create(view.getContext());
+                                DaoFrase dao = new DaoFrase(view.getContext());
                                 dao.favoritar(fraseSelecionada);
                                 showStar(fraseSelecionada);
                             }
@@ -100,7 +97,6 @@ public class ListaFrasesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tts.speak(traducaoSelecionada.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
-                Toast.makeText(v.getContext(), "APERTO", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,7 +109,6 @@ public class ListaFrasesActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
 
@@ -168,7 +163,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // Adiciona o adapter que irá anexar os objetos à lista.
-        Create dao = new Create(this);
+        DaoFrase dao = new DaoFrase(this);
         adapter = new FraseAdapter(dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
