@@ -121,7 +121,7 @@ public class DaoFrase extends SQLiteOpenHelper {
         try {
             Cursor c = db.rawQuery(getFrases, null);
 
-            if(c.moveToFirst()) {
+            if (c.moveToFirst()) {
                 do {
                     Frase f = new Frase();
                     f.setId(c.getInt(0));
@@ -130,11 +130,11 @@ public class DaoFrase extends SQLiteOpenHelper {
                     f.setCategoria(c.getString(3));
                     f.setFavorito(Boolean.parseBoolean(c.getString(4)));
                     fArray.add(f);
-                } while(c.moveToNext());
+                } while (c.moveToNext());
                 c.close();
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         } finally {
@@ -143,8 +143,6 @@ public class DaoFrase extends SQLiteOpenHelper {
 
         return fArray;
     }
-
-
 
     public ArrayList<Frase> getFrases() {
         openDB();
@@ -207,6 +205,36 @@ public class DaoFrase extends SQLiteOpenHelper {
 
         return fArray;
     }
+
+    public Frase getFraseById(int id) {
+        openDB();
+        Frase f = new Frase();
+        String getFrase = "SELECT * FROM " + TABELA + " where id = " + id;
+
+        try {
+            Cursor c = db.rawQuery(getFrase, null);
+
+            if(c.moveToFirst()) {
+                do {
+                    f.setId(c.getInt(0));
+                    f.setFraseOriginal(c.getString(1));
+                    f.setFraseTraduzida(c.getString(2));
+                    f.setCategoria(c.getString(3));
+                    f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                } while(c.moveToNext());
+                c.close();
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            db.close();
+        }
+
+        return f;
+    }
+
 
     public void favTest(Frase f) {
         int id = f.getId();
