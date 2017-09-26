@@ -1,5 +1,6 @@
 package src.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,19 +26,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
-import src.dao.Create;
+import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.Util;
 
 public class AdicionarFraseActivity extends AppCompatActivity {
 
-    private Button btnAddFrase, btnListar, btnTraduzir;
+    private Button btnAddFrase, btnCategorias, btnTraduzir;
     private EditText txtFraseOriginal, txtFraseTraduzida;
     private CheckBox favorito;
     private Spinner spnCategoria;
     private Util util;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         util = new Util();
         btnAddFrase = (Button) findViewById(R.id.btnAddFrasesId);
-        btnListar = (Button) findViewById(R.id.btnListarId);
+        btnCategorias = (Button) findViewById(R.id.btnCategoriaId);
         btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
 
         txtFraseOriginal = (EditText) findViewById(R.id.txtFraseOriginalId);
@@ -53,7 +54,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         favorito = (CheckBox) findViewById(R.id.favoritoId);
 
-        Create c = new Create(getApplicationContext());
+        DaoFrase c = new DaoFrase(getApplicationContext());
         c.createTable();
 
         spnCategoria = (Spinner) findViewById(R.id.spnCategoriaId);
@@ -74,7 +75,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 f.setCategoria(spnCategoria.getSelectedItem().toString());
                 f.setFavorito(favorito.isChecked());
 
-                Create c = new Create(getApplicationContext());
+                DaoFrase c = new DaoFrase(getApplicationContext());
 
                 if(c.insertFrase(f)) {
                     Toast.makeText(getApplicationContext(), "Frase inserida com sucesso", Toast.LENGTH_LONG).show();
@@ -85,23 +86,10 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             }
         });
 
-        btnListar.setOnClickListener(new View.OnClickListener() {
+        btnCategorias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Create r = new Create(getApplicationContext());
-                ArrayList<Frase> fArray = r.getFrases();
-                for (int i = 0; i < fArray.size(); i++) {
-                    Frase f = fArray.get(i);
-                    System.out.println("ID = " + f.getId() +
-                            "\n FRASE = " + f.getFraseOriginal() +
-                            "\n TRADUCAO = " + f.getFraseTraduzida() +
-                            "\n CATEGORIA = " + f.getCategoria() +
-                            "\n FAVORITA = " + f.isFavorito() +
-                            "\n -----------------------------------");
-                }
-
-                startActivity(new Intent(getApplicationContext(), ListaFrasesActivity.class));
+                startActivity(new Intent(getApplicationContext(), CategoriasActivity.class));
             }
         });
 
@@ -110,8 +98,13 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 boolean connected = util.isConnected(v.getContext());
+
                 if(connected) {
-                    new JSONTask().execute("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20170916T163659Z.3c511aee14a614cd.2b9d38510d2b13f7f7efd9b2c6de74690eeec26f&text=" + txtFraseOriginal.getText().toString() + "&lang=pt-en");
+                    String fraseString = txtFraseOriginal.getText().toString();
+                    String fraseFinal = fraseString.replace(" ", "%20");
+                    String idiomas = "pt-en";
+                    String yandexUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+util.KEY+"&text=" + fraseFinal + "&lang=" + idiomas;
+                    new JSONTask().execute(yandexUrl);
                 } else {
                     Toast.makeText(v.getContext(), "É necessário estar conectado na internet para utilizar a funcionalidade " +
                             "de tradução", Toast.LENGTH_SHORT).show();
@@ -122,6 +115,14 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
 
     public class JSONTask extends AsyncTask<String, String, String> {
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = new ProgressDialog(AdicionarFraseActivity.this);
+            pd.setMessage("Traduzindo");
+            pd.show();
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -141,31 +142,13 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 while((line = reader.readLine()) != null) {
                     buffer.append(line);
                 }
-
-                /*String finalJson = buffer.toString();
-
-                JSONObject parentObject = new JSONObject(finalJson);
-                JSONArray parentArray = parentObject.getJSONArray("movies");
-
-                JSONObject finalObject = parentArray.getJSONObject(0);
-
-                String movieName = finalObject.getString("movie");
-                int year = finalObject.getInt("year");
-
-                return movieName + " - " + year;*/
-
                 //PARSIN JSON WITHOUT KEY
                 String finalJson = buffer.toString();
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray aa = parentObject.getJSONArray("text");
                 String foo = aa.getString(0);
-                //int aa = itemArray.length();
-                //String foo = itemArray.getString(0);
 
-                System.out.println("JSON = ");
-
-
-                return foo;//buffer.toString();
+                return foo;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -187,6 +170,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            if (pd != null) pd.dismiss();
             txtFraseTraduzida.setText(result.toString());
         }
     }

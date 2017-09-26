@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.parrot.parrot">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,8 +21,8 @@
         </activity>
         <activity android:name="src.view.AdicionarFraseActivity" />
         <activity android:name="src.view.ListaFrasesActivity" />
-        <activity android:name="src.view.ItemFraseActivity" />
-        <activity android:name="src.view.CategoriasActivity"></activity>
+        <activity android:name="src.view.CategoriasActivity" />
+        <activity android:name="src.view.ListaFavoritosActivity"></activity>
     </application>
 
 </manifest>

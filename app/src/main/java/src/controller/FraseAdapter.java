@@ -12,7 +12,7 @@ import com.android.parrot.parrot.R;
 
 import java.util.List;
 
-import src.dao.Create;
+import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.ItemClickSupport;
 import src.view.ItemFraseActivity;
@@ -37,10 +37,11 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
     }
 
     @Override
-    public void onBindViewHolder( ItemFraseActivity holder, int position) {
+    public void onBindViewHolder(ItemFraseActivity holder, int position) {
         holder.frase.setText(frases.get(position).getFraseOriginal());
         final int index = position;
-
+        final Frase f = frases.get(position);
+        final ItemFraseActivity h = holder;
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
 
@@ -53,7 +54,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
                         .setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Create c = new Create(view.getContext());
+                                DaoFrase c = new DaoFrase(view.getContext());
                                 Frase f = frases.get(index);
                                 if(c.deleteFrase(f)) {
                                     removerFrase(f);
@@ -66,8 +67,6 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
 
             }
         });
-       // clicar(holder, position);
-
     }
 
     @Override
@@ -87,9 +86,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 fHolder.frase.setText(frases.get(position).getFraseTraduzida());
-                Toast.makeText(v.getContext(), "CLICOU " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 }

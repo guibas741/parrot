@@ -1,10 +1,12 @@
 package src.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import src.controller.FraseAdapter;
-import src.dao.Create;
+import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.ItemClickSupport;
 
@@ -37,30 +38,57 @@ public class ListaFrasesActivity extends AppCompatActivity {
     private FraseAdapter adapter;
     private ItemFraseActivity holder;
     private TextView traducaoSelecionada;
-    private ImageView btnAudio;
+    private ImageView btnAudio, btnFav;
     private TextToSpeech tts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_frases);
-        buscarDados();
+        //buscarDados();
         configurarRecycler();
 
         traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
         btnAudio = (ImageView) findViewById(R.id.btnAudioId);
+        btnFav = (ImageView) findViewById(R.id.favId);
 
-        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
-            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Frase f = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
-                Create dao = new Create(getApplicationContext());
+                DaoFrase dao = new DaoFrase(getApplicationContext());
                 frases = dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
                 f = frases.get(position);
                 traducaoSelecionada.setText(f.getFraseTraduzida());
-                //holder.frase.setText(f.getFraseTraduzida());
-                Toast.makeText(v.getContext(), "TRADUÇÃO =  " + f.getFraseTraduzida(), Toast.LENGTH_SHORT).show();
+                showStar(f);
+            }
+        });
+
+        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(final RecyclerView recyclerView, int position, View v) {
+                final View view = v;
+                Frase frase = new Frase();
+                ArrayList<Frase> frases = new ArrayList<Frase>();
+                DaoFrase dao1 = new DaoFrase(v.getContext());
+                frases = dao1.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
+                frase = frases.get(position);
+                final Frase fraseSelecionada = frase;
+                String pergunta = frase.isFavorito() == true ? " remover dos favoritos " : " favoritar ";
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Confirmação")
+                        .setMessage("Tem certeza que deseja" + pergunta + " esta frase?")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DaoFrase dao = new DaoFrase(view.getContext());
+                                dao.favoritar(fraseSelecionada);
+                                showStar(fraseSelecionada);
+                            }
+                        }).setNegativeButton("Cancelar", null).create() .show();
+
                 return false;
             }
         });
@@ -69,7 +97,6 @@ public class ListaFrasesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tts.speak(traducaoSelecionada.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
-                Toast.makeText(v.getContext(), "APERTO", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -82,7 +109,6 @@ public class ListaFrasesActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
 
@@ -137,9 +163,14 @@ public class ListaFrasesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // Adiciona o adapter que irá anexar os objetos à lista.
-        Create dao = new Create(this);
+        DaoFrase dao = new DaoFrase(this);
         adapter = new FraseAdapter(dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+    }
+
+    public void showStar(Frase f) {
+        if(f.isFavorito()) btnFav.setVisibility(View.VISIBLE);
+        else btnFav.setVisibility(View.INVISIBLE);
     }
 }

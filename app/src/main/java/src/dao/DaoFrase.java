@@ -14,7 +14,7 @@ import src.model.Frase;
  * Created by Windows on 09/09/2017.
  */
 
-public class Create extends SQLiteOpenHelper {
+public class DaoFrase extends SQLiteOpenHelper {
 
     private static final String NOME_DB = "parrotDb";
     private static final int VERSAO_DB = 1;
@@ -23,21 +23,17 @@ public class Create extends SQLiteOpenHelper {
     private Context mContext;
     private SQLiteDatabase db;
 
-    public Create(Context context) {
+    public DaoFrase(Context context) {
         super(context, NOME_DB, null, VERSAO_DB);
         this.mContext = context;
         db = getWritableDatabase();
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-
-    }
+    public void onCreate(SQLiteDatabase db) {}
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
     public boolean createTable() {
         openDB();
@@ -94,6 +90,58 @@ public class Create extends SQLiteOpenHelper {
         } finally {
             db.close();
         }
+    }
+
+    public void favoritar(Frase f) {
+        openDB();
+
+        try {
+            ContentValues cv = new ContentValues();
+            String where = "id = " + f.getId();
+
+            String favoritou = f.isFavorito() == false ? "true" : "false";
+            cv.put("favorito", favoritou);
+
+            db.update(TABELA, cv, where, null);
+
+        } catch(Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            db.close();
+        }
+
+    }
+
+    public ArrayList<Frase> getFavoritos() {
+        openDB();
+        ArrayList<Frase> fArray = new ArrayList<>();
+        String getFrases = "SELECT * FROM " + TABELA + " WHERE favorito = 'true'";
+
+        try {
+            Cursor c = db.rawQuery(getFrases, null);
+
+            if (c.moveToFirst()) {
+                do {
+                    Frase f = new Frase();
+                    f.setId(c.getInt(0));
+                    f.setFraseOriginal(c.getString(1));
+                    f.setFraseTraduzida(c.getString(2));
+                    f.setCategoria(c.getString(3));
+                    f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                    fArray.add(f);
+                } while (c.moveToNext());
+                c.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            db.close();
+        }
+
+        return fArray;
     }
 
     public ArrayList<Frase> getFrases() {
@@ -156,6 +204,55 @@ public class Create extends SQLiteOpenHelper {
         }
 
         return fArray;
+    }
+
+    public Frase getFraseById(int id) {
+        openDB();
+        Frase f = new Frase();
+        String getFrase = "SELECT * FROM " + TABELA + " where id = " + id;
+
+        try {
+            Cursor c = db.rawQuery(getFrase, null);
+
+            if(c.moveToFirst()) {
+                do {
+                    f.setId(c.getInt(0));
+                    f.setFraseOriginal(c.getString(1));
+                    f.setFraseTraduzida(c.getString(2));
+                    f.setCategoria(c.getString(3));
+                    f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                } while(c.moveToNext());
+                c.close();
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            db.close();
+        }
+
+        return f;
+    }
+
+
+    public void favTest(Frase f) {
+        int id = f.getId();
+        String getFraseSelecionada = "SELECT * FROM " + TABELA + " WHERE id = " + id;
+        try {
+            Cursor c = db.rawQuery(getFraseSelecionada, null);
+
+            if(c.moveToNext()) {
+                boolean favorito = f.isFavorito() == true ? false : true;
+                f.setFavorito(favorito);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isFavorito(Frase f) {
+        return f.isFavorito();
     }
 
 

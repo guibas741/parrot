@@ -10,13 +10,13 @@ import com.android.parrot.parrot.R;
 
 import static com.android.parrot.parrot.R.id.btnAlimentacaoId;
 import static com.android.parrot.parrot.R.id.btnComumId;
+import static com.android.parrot.parrot.R.id.btnFavoritosId;
 import static com.android.parrot.parrot.R.id.btnLocalizacaoId;
-import static com.android.parrot.parrot.R.id.btnPersonalizadosId;
 import static com.android.parrot.parrot.R.id.btnSaudeId;
 
 public class CategoriasActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnSaude, btnAlimentacao, btnLocalizacao, btnPersonalizados, btnComum;
+    private Button btnSaude, btnAlimentacao, btnLocalizacao, btnFavoritos, btnComum;
     public static String categoriaSelecionada;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +26,13 @@ public class CategoriasActivity extends AppCompatActivity implements View.OnClic
         btnSaude = (Button) findViewById(btnSaudeId);
         btnAlimentacao = (Button) findViewById(btnAlimentacaoId);
         btnLocalizacao = (Button) findViewById(btnLocalizacaoId);
-        btnPersonalizados = (Button) findViewById(btnPersonalizadosId);
+        btnFavoritos = (Button) findViewById(btnFavoritosId);
         btnComum = (Button) findViewById(btnComumId);
 
         btnSaude.setOnClickListener(this);
         btnAlimentacao.setOnClickListener(this);
         btnLocalizacao.setOnClickListener(this);
-        btnPersonalizados.setOnClickListener(this);
+        btnFavoritos.setOnClickListener(this);
         btnComum.setOnClickListener(this);
 
     }
@@ -49,14 +49,19 @@ public class CategoriasActivity extends AppCompatActivity implements View.OnClic
             case btnLocalizacaoId:
                 categoriaSelecionada = "localizacao";
                 break;
-            case btnPersonalizadosId:
-                categoriaSelecionada = "personalizado";
+            case btnFavoritosId:
+                categoriaSelecionada = "favoritos";
                 break;
             case btnComumId:
                 categoriaSelecionada = "comum";
                 break;
 
         }
-        startActivity(new Intent(CategoriasActivity.this, ListaFrasesActivity.class));
+        if("favoritos".equals(categoriaSelecionada)) {
+            startActivity(new Intent(CategoriasActivity.this, ListaFavoritosActivity.class));
+        } else {
+            startActivity(new Intent(CategoriasActivity.this, ListaFrasesActivity.class));
+        }
+
     }
 }
