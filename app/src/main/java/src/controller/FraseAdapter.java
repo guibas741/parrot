@@ -14,6 +14,7 @@ import java.util.List;
 
 import src.dao.DaoFrase;
 import src.model.Frase;
+import src.util.Util;
 import src.view.ItemFraseActivity;
 
 
@@ -22,6 +23,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
 
     private final List<Frase> frases;
 
+    private Util util;
     public FraseAdapter(List<Frase> frases) {
         this.frases = frases;
     }
@@ -42,6 +44,7 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
             @Override
             public void onClick(View v) {
                 final View view = v;
+                util = new Util();
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Confirmação")
                         .setMessage("Tem certeza que deseja excluir esta frase?")
@@ -52,9 +55,9 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
                                 Frase f = frases.get(index);
                                 if(daoFrase.deleteFrase(f)) {
                                     removerFrase(f);
-                                    Toast.makeText(view.getContext(), "Excluiu", Toast.LENGTH_LONG).show();
+                                    util.makeToast("Excluiu", view.getContext(), Toast.LENGTH_LONG);
                                 } else {
-                                    Toast.makeText(view.getContext(), "Não excluiu", Toast.LENGTH_LONG).show();
+                                    util.makeToast("Não excluiu", view.getContext(), Toast.LENGTH_LONG);
                                 }
                             }
                         }).setNegativeButton("Cancelar", null).create() .show();
@@ -72,5 +75,6 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
         int position = frases.indexOf(f);
         frases.remove(position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
     }
 }
