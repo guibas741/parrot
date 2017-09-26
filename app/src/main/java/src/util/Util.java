@@ -3,6 +3,7 @@ package src.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 /**
  * Created by Windows on 19/09/2017.
@@ -31,4 +32,14 @@ public class Util {
         }
         return false;
     }*/
+
+    public String urlBuilder(String key, String frase, String idiomas) {
+        String fraseFinal = frase.replace(" ", "%20");
+        return "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + key +
+                "&text=" + fraseFinal + "&lang=" + idiomas;
+    }
+
+    public void makeToast(String text, Context context, int length) { // 0 para short e 1 para long
+        Toast.makeText(context, text, length).show();
+    }
 }

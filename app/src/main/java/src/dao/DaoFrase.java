@@ -235,7 +235,6 @@ public class DaoFrase extends SQLiteOpenHelper {
         return f;
     }
 
-
     public void favTest(Frase f) {
         int id = f.getId();
         String getFraseSelecionada = "SELECT * FROM " + TABELA + " WHERE id = " + id;
@@ -250,11 +249,6 @@ public class DaoFrase extends SQLiteOpenHelper {
             e.printStackTrace();
         }
     }
-
-    public boolean isFavorito(Frase f) {
-        return f.isFavorito();
-    }
-
 
     public boolean deleteFrase(Frase f) {
         openDB();

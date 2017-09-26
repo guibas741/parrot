@@ -65,7 +65,6 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         spnCategoria.setAdapter(adapter);
 
-
         btnAddFrase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,9 +77,9 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 DaoFrase c = new DaoFrase(getApplicationContext());
 
                 if(c.insertFrase(f)) {
-                    Toast.makeText(getApplicationContext(), "Frase inserida com sucesso", Toast.LENGTH_LONG).show();
+                    util.makeToast( "Frase inserida com sucesso", getApplicationContext(), Toast.LENGTH_LONG);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Frase NAO INSERIDA", Toast.LENGTH_LONG).show();
+                    util.makeToast( "Frase não inserida", getApplicationContext(), Toast.LENGTH_LONG);
                 }
 
             }
@@ -101,13 +100,11 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
                 if(connected) {
                     String fraseString = txtFraseOriginal.getText().toString();
-                    String fraseFinal = fraseString.replace(" ", "%20");
                     String idiomas = "pt-en";
-                    String yandexUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+util.KEY+"&text=" + fraseFinal + "&lang=" + idiomas;
+                    String yandexUrl = util.urlBuilder(util.KEY, fraseString, idiomas);
                     new JSONTask().execute(yandexUrl);
                 } else {
-                    Toast.makeText(v.getContext(), "É necessário estar conectado na internet para utilizar a funcionalidade " +
-                            "de tradução", Toast.LENGTH_SHORT).show();
+                    util.makeToast("É necessário estar conectado na internet para utilizar a funcionalidade de tradução", v.getContext(), Toast.LENGTH_SHORT);
                 }
             }
         });
@@ -146,9 +143,9 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 String finalJson = buffer.toString();
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray aa = parentObject.getJSONArray("text");
-                String foo = aa.getString(0);
+                String traducao = aa.getString(0);
 
-                return foo;
+                return traducao;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -174,6 +171,4 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             txtFraseTraduzida.setText(result.toString());
         }
     }
-
-
 }
