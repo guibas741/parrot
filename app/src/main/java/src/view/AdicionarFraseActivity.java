@@ -26,8 +26,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import src.dao.DaoFrase;
+import src.model.Categoria;
 import src.model.Frase;
 import src.util.Util;
 
@@ -62,6 +64,8 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         String[] items = new String[]{"saude", "alimentacao", "localizacao", "comum", "personalizado"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+
+
 
         spnCategoria.setAdapter(adapter);
 
@@ -170,5 +174,18 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             if (pd != null) pd.dismiss();
             txtFraseTraduzida.setText(result.toString());
         }
+    }
+
+    private void setData() {
+        ArrayList<Categoria> categorias = new ArrayList<>();
+        categorias.add(new Categoria(1, "Saúde", "saude"));
+        categorias.add(new Categoria(2, "Alimentação", "alimentacao"));
+        categorias.add(new Categoria(3, "Localização", "localizacao"));
+        categorias.add(new Categoria(4, "Comum", "comum"));
+
+        ArrayAdapter<Categoria> adapter = new ArrayAdapter<Categoria>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, categorias);
+        spnCategoria.setAdapter(adapter);
+        spnCategoria.setSelection(adapter.getPosition(categorias.get(3)));
+
     }
 }
