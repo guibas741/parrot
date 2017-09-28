@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="src.view.CategoriasActivity">
+    tools:context="src.view.CategoriasActivity"
+    android:background="@android:color/white">
 
     <Button
         android:id="@+id/btnSaudeId"
@@ -16,6 +17,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Saude"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -32,6 +34,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Alimentação"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -48,6 +51,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Localização"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -66,6 +70,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Comum"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -83,6 +88,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Favoritos"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"

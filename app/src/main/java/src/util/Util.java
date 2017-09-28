@@ -1,8 +1,10 @@
 package src.util;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -52,6 +54,11 @@ public class Util {
         } else {
             return true;
         }
+    }
+
+    public void setFont(Button text, Context context) {
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "Somatic-Rounded.ttf");
+        text.setTypeface(font);
     }
 
 }

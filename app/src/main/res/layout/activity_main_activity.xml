@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="src.view.MainActivity">
+    tools:context="src.view.MainActivity"
+    android:background="@android:color/white">
 
     <Button
         android:id="@+id/btnCategoriaId"
@@ -16,6 +17,8 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Categorias"
+        android:textColor="@android:color/background_light"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,6 +36,8 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Adicionar Frases"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -50,6 +55,8 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Sair"
+        android:textColor="#ffffff"
+        android:textSize="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
