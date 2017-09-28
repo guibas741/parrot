@@ -72,20 +72,23 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         btnAddFrase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Frase f = new Frase();
-                f.setFraseOriginal(txtFraseOriginal.getText().toString());
-                f.setFraseTraduzida(txtFraseTraduzida.getText().toString());
-                f.setCategoria(spnCategoria.getSelectedItem().toString());
-                f.setFavorito(favorito.isChecked());
+                boolean campoTexto = util.fieldIsNull(txtFraseOriginal, v.getContext());
+                boolean campoTraducao = util.fieldIsNull(txtFraseTraduzida, v.getContext());
+                if(campoTexto && campoTraducao) {
+                    Frase f = new Frase();
+                    f.setFraseOriginal(txtFraseOriginal.getText().toString());
+                    f.setFraseTraduzida(txtFraseTraduzida.getText().toString());
+                    f.setCategoria(spnCategoria.getSelectedItem().toString());
+                    f.setFavorito(favorito.isChecked());
 
-                DaoFrase c = new DaoFrase(getApplicationContext());
+                    DaoFrase c = new DaoFrase(getApplicationContext());
 
-                if(c.insertFrase(f)) {
-                    util.makeToast( "Frase inserida com sucesso", getApplicationContext(), Toast.LENGTH_LONG);
-                } else {
-                    util.makeToast( "Frase não inserida", getApplicationContext(), Toast.LENGTH_LONG);
+                    if (c.insertFrase(f)) {
+                        util.makeToast("Frase inserida com sucesso", getApplicationContext(), Toast.LENGTH_LONG);
+                    } else {
+                        util.makeToast("Frase não inserida", getApplicationContext(), Toast.LENGTH_LONG);
+                    }
                 }
-
             }
         });
 

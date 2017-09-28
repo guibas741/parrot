@@ -3,6 +3,7 @@ package src.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.EditText;
 import android.widget.Toast;
 
 /**
@@ -42,4 +43,15 @@ public class Util {
     public void makeToast(String text, Context context, int length) { // 0 para short e 1 para long
         Toast.makeText(context, text, length).show();
     }
+
+    public boolean fieldIsNull(EditText text, Context context) {
+        if(text == null || text.getText().toString().isEmpty()) {
+            text.requestFocus();
+            makeToast("Os campos frase original e tradução não podem ser vazios!", context, Toast.LENGTH_SHORT);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
