@@ -102,16 +102,20 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         btnTraduzir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean campoTexto = util.fieldIsNull(txtFraseOriginal, v.getContext());
+                boolean campoTraducao = util.fieldIsNull(txtFraseTraduzida, v.getContext());
+                if(campoTexto && campoTraducao) {
 
-                boolean connected = util.isConnected(v.getContext());
+                    boolean connected = util.isConnected(v.getContext());
 
-                if(connected) {
-                    String fraseString = txtFraseOriginal.getText().toString();
-                    String idiomas = "pt-en";
-                    String yandexUrl = util.urlBuilder(util.KEY, fraseString, idiomas);
-                    new JSONTask().execute(yandexUrl);
-                } else {
-                    util.makeToast("É necessário estar conectado na internet para utilizar a funcionalidade de tradução", v.getContext(), Toast.LENGTH_SHORT);
+                    if (connected) {
+                        String fraseString = txtFraseOriginal.getText().toString();
+                        String idiomas = "pt-en";
+                        String yandexUrl = util.urlBuilder(util.KEY, fraseString, idiomas);
+                        new JSONTask().execute(yandexUrl);
+                    } else {
+                        util.makeToast("É necessário estar conectado na internet para utilizar a funcionalidade de tradução", v.getContext(), Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });
