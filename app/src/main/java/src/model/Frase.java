@@ -10,13 +10,33 @@ public class Frase {
     private String fraseTraduzida;
     private boolean favorito;
     private String categoria;
+    private String idiomaOriginal;
+    private String idiomaTraducao;
 
-    public Frase(int id, String fraseOriginal, String fraseTraduzida, boolean favorito, String categoria) {
+    public String getIdiomaOriginal() {
+        return idiomaOriginal;
+    }
+
+    public void setIdiomaOriginal(String idiomaOriginal) {
+        this.idiomaOriginal = idiomaOriginal;
+    }
+
+    public String getIdiomaTraducao() {
+        return idiomaTraducao;
+    }
+
+    public void setIdiomaTraducao(String idiomaTraducao) {
+        this.idiomaTraducao = idiomaTraducao;
+    }
+
+    public Frase(int id, String fraseOriginal, String fraseTraduzida, boolean favorito, String categoria, String idiomaOriginal, String idiomaTraducao) {
         this.id = id;
         this.fraseOriginal = fraseOriginal;
         this.fraseTraduzida = fraseTraduzida;
         this.favorito = favorito;
         this.categoria = categoria;
+        this.idiomaOriginal = idiomaOriginal;
+        this.idiomaTraducao = idiomaTraducao;
     }
 
     public Frase() {

@@ -26,8 +26,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import src.dao.DaoFrase;
+import src.model.Categoria;
 import src.model.Frase;
 import src.util.Util;
 
@@ -63,26 +65,32 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
 
-        spnCategoria.setAdapter(adapter);
 
+
+        spnCategoria.setAdapter(adapter);
 
         btnAddFrase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Frase f = new Frase();
-                f.setFraseOriginal(txtFraseOriginal.getText().toString());
-                f.setFraseTraduzida(txtFraseTraduzida.getText().toString());
-                f.setCategoria(spnCategoria.getSelectedItem().toString());
-                f.setFavorito(favorito.isChecked());
+                boolean campoTexto = util.fieldIsNull(txtFraseOriginal, v.getContext(), "Frase Original");
+                boolean campoTraducao = util.fieldIsNull(txtFraseTraduzida, v.getContext(), "Tradução");
+                if(campoTexto && campoTraducao) {
+                    Frase f = new Frase();
+                    f.setFraseOriginal(txtFraseOriginal.getText().toString());
+                    f.setFraseTraduzida(txtFraseTraduzida.getText().toString());
+                    f.setCategoria(spnCategoria.getSelectedItem().toString());
+                    f.setFavorito(favorito.isChecked());
+                    f.setIdiomaOriginal("pt");
+                    f.setIdiomaTraducao("en");
 
-                DaoFrase c = new DaoFrase(getApplicationContext());
+                    DaoFrase c = new DaoFrase(getApplicationContext());
 
-                if(c.insertFrase(f)) {
-                    Toast.makeText(getApplicationContext(), "Frase inserida com sucesso", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Frase NAO INSERIDA", Toast.LENGTH_LONG).show();
+                    if (c.insertFrase(f)) {
+                        util.makeToast("Frase inserida com sucesso", getApplicationContext(), Toast.LENGTH_LONG);
+                    } else {
+                        util.makeToast("Frase não inserida", getApplicationContext(), Toast.LENGTH_LONG);
+                    }
                 }
-
             }
         });
 
@@ -96,18 +104,19 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         btnTraduzir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean campoTexto = util.fieldIsNull(txtFraseOriginal, v.getContext(), "Frase Original");
+                if(campoTexto) {
 
-                boolean connected = util.isConnected(v.getContext());
+                    boolean connected = util.isConnected(v.getContext());
 
-                if(connected) {
-                    String fraseString = txtFraseOriginal.getText().toString();
-                    String fraseFinal = fraseString.replace(" ", "%20");
-                    String idiomas = "pt-en";
-                    String yandexUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+util.KEY+"&text=" + fraseFinal + "&lang=" + idiomas;
-                    new JSONTask().execute(yandexUrl);
-                } else {
-                    Toast.makeText(v.getContext(), "É necessário estar conectado na internet para utilizar a funcionalidade " +
-                            "de tradução", Toast.LENGTH_SHORT).show();
+                    if (connected) {
+                        String fraseString = txtFraseOriginal.getText().toString();
+                        String idiomas = "pt-en";
+                        String yandexUrl = util.urlBuilder(util.KEY, fraseString, idiomas);
+                        new JSONTask().execute(yandexUrl);
+                    } else {
+                        util.makeToast("É necessário estar conectado na internet para utilizar a funcionalidade de tradução", v.getContext(), Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });
@@ -146,9 +155,9 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 String finalJson = buffer.toString();
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray aa = parentObject.getJSONArray("text");
-                String foo = aa.getString(0);
+                String traducao = aa.getString(0);
 
-                return foo;
+                return traducao;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -175,5 +184,16 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         }
     }
 
+    private void setData() {
+        ArrayList<Categoria> categorias = new ArrayList<>();
+        categorias.add(new Categoria(1, "Saúde", "saude"));
+        categorias.add(new Categoria(2, "Alimentação", "alimentacao"));
+        categorias.add(new Categoria(3, "Localização", "localizacao"));
+        categorias.add(new Categoria(4, "Comum", "comum"));
 
+        ArrayAdapter<Categoria> adapter = new ArrayAdapter<Categoria>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, categorias);
+        spnCategoria.setAdapter(adapter);
+        spnCategoria.setSelection(adapter.getPosition(categorias.get(3)));
+
+    }
 }

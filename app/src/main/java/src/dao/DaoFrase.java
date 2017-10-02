@@ -42,7 +42,9 @@ public class DaoFrase extends SQLiteOpenHelper {
                 "original TEXT NOT NULL, " +
                 "traducao TEXT NOT NULL, " +
                 "categoria TEXT NOT NULL, " +
-                "favorito TEXT)";
+                "favorito TEXT, " +
+                "idiomaOriginal TEXT NOT NULL," +
+                "idiomaTraducao TEXT NOT NULL)";
         try {
             db.execSQL(createTable);
             return true;
@@ -63,6 +65,8 @@ public class DaoFrase extends SQLiteOpenHelper {
             cv.put("traducao", f.getFraseTraduzida());
             cv.put("categoria", f.getCategoria());
             cv.put("favorito", String.valueOf(f.isFavorito()));
+            cv.put("idiomaOriginal", f.getIdiomaOriginal());
+            cv.put("idiomaTraducao", f.getIdiomaTraducao());
             db.insert(TABELA, null, cv);
             return true;
         } catch (Exception e) {
@@ -82,6 +86,8 @@ public class DaoFrase extends SQLiteOpenHelper {
             cv.put("traducao", f.getFraseTraduzida());
             cv.put("categoria", f.getCategoria());
             cv.put("favorito", String.valueOf(f.isFavorito()));
+            cv.put("idiomaOriginal", f.getIdiomaOriginal());
+            cv.put("idiomaTraducao", f.getIdiomaTraducao());
             db.update(TABELA, cv, where, null);
             return true;
         } catch (Exception e) {
@@ -129,6 +135,8 @@ public class DaoFrase extends SQLiteOpenHelper {
                     f.setFraseTraduzida(c.getString(2));
                     f.setCategoria(c.getString(3));
                     f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                    f.setIdiomaOriginal(c.getString(5));
+                    f.setIdiomaTraducao(c.getString(6));
                     fArray.add(f);
                 } while (c.moveToNext());
                 c.close();
@@ -160,6 +168,8 @@ public class DaoFrase extends SQLiteOpenHelper {
                     f.setFraseTraduzida(c.getString(2));
                     f.setCategoria(c.getString(3));
                     f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                    f.setIdiomaOriginal(c.getString(5));
+                    f.setIdiomaTraducao(c.getString(6));
                     fArray.add(f);
                 } while(c.moveToNext());
                 c.close();
@@ -191,6 +201,8 @@ public class DaoFrase extends SQLiteOpenHelper {
                     f.setFraseTraduzida(c.getString(2));
                     f.setCategoria(c.getString(3));
                     f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                    f.setIdiomaOriginal(c.getString(5));
+                    f.setIdiomaTraducao(c.getString(6));
                     fArray.add(f);
                 } while(c.moveToNext());
                 c.close();
@@ -221,6 +233,8 @@ public class DaoFrase extends SQLiteOpenHelper {
                     f.setFraseTraduzida(c.getString(2));
                     f.setCategoria(c.getString(3));
                     f.setFavorito(Boolean.parseBoolean(c.getString(4)));
+                    f.setIdiomaOriginal(c.getString(5));
+                    f.setIdiomaTraducao(c.getString(6));
                 } while(c.moveToNext());
                 c.close();
             }
@@ -234,7 +248,6 @@ public class DaoFrase extends SQLiteOpenHelper {
 
         return f;
     }
-
 
     public void favTest(Frase f) {
         int id = f.getId();
@@ -250,11 +263,6 @@ public class DaoFrase extends SQLiteOpenHelper {
             e.printStackTrace();
         }
     }
-
-    public boolean isFavorito(Frase f) {
-        return f.isFavorito();
-    }
-
 
     public boolean deleteFrase(Frase f) {
         openDB();

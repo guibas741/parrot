@@ -14,18 +14,16 @@ import java.util.List;
 
 import src.dao.DaoFrase;
 import src.model.Frase;
-import src.util.ItemClickSupport;
+import src.util.Util;
 import src.view.ItemFraseActivity;
 
-/**
- * Created by Windows on 11/09/2017.
- */
+
 
 public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
 
     private final List<Frase> frases;
-    private int index;
 
+    private Util util;
     public FraseAdapter(List<Frase> frases) {
         this.frases = frases;
     }
@@ -40,27 +38,26 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
     public void onBindViewHolder(ItemFraseActivity holder, int position) {
         holder.frase.setText(frases.get(position).getFraseOriginal());
         final int index = position;
-        final Frase f = frases.get(position);
-        final ItemFraseActivity h = holder;
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 final View view = v;
+                util = new Util();
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Confirmação")
                         .setMessage("Tem certeza que deseja excluir esta frase?")
                         .setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                DaoFrase c = new DaoFrase(view.getContext());
+                                DaoFrase daoFrase = new DaoFrase(view.getContext());
                                 Frase f = frases.get(index);
-                                if(c.deleteFrase(f)) {
+                                if(daoFrase.deleteFrase(f)) {
                                     removerFrase(f);
-                                    Toast.makeText(view.getContext(), "Excluiu", Toast.LENGTH_LONG).show();
+                                    util.makeToast("Excluiu", view.getContext(), Toast.LENGTH_LONG);
                                 } else {
-                                    Toast.makeText(view.getContext(), "Não excluiu", Toast.LENGTH_LONG).show();
+                                    util.makeToast("Não excluiu", view.getContext(), Toast.LENGTH_LONG);
                                 }
                             }
                         }).setNegativeButton("Cancelar", null).create() .show();
@@ -78,15 +75,6 @@ public class FraseAdapter extends RecyclerView.Adapter<ItemFraseActivity>{
         int position = frases.indexOf(f);
         frases.remove(position);
         notifyItemRemoved(position);
-    }
-
-    public void clicar(ItemFraseActivity holder, int position, RecyclerView recyclerView) {
-        final ItemFraseActivity fHolder =  holder;
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                fHolder.frase.setText(frases.get(position).getFraseTraduzida());
-            }
-        });
+        notifyItemRangeChanged(position, getItemCount());
     }
 }

@@ -1,9 +1,6 @@
 package src.view;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
@@ -11,11 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.parrot.parrot.R;
@@ -27,26 +21,22 @@ import src.controller.FraseAdapter;
 import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.ItemClickSupport;
+import src.util.Util;
 
 public class ListaFrasesActivity extends AppCompatActivity {
 
-    private SQLiteDatabase db;
-    private ListView listaFrases;
-    private Cursor cursor;
-    private ArrayAdapter<String> ad;
     private RecyclerView recyclerView;
-    private FraseAdapter adapter;
-    private ItemFraseActivity holder;
     private TextView traducaoSelecionada;
     private ImageView btnAudio, btnFav;
     private TextToSpeech tts;
+    private Util util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_frases);
-        //buscarDados();
         configurarRecycler();
+        util = new Util();
 
         traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
         btnAudio = (ImageView) findViewById(R.id.btnAudioId);
@@ -56,13 +46,13 @@ public class ListaFrasesActivity extends AppCompatActivity {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                Frase f = new Frase();
+                Frase frase = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
                 DaoFrase dao = new DaoFrase(getApplicationContext());
                 frases = dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
-                f = frases.get(position);
-                traducaoSelecionada.setText(f.getFraseTraduzida());
-                showStar(f);
+                frase = frases.get(position);
+                traducaoSelecionada.setText(frase.getFraseTraduzida());
+                util.showButton(btnFav, frase);
             }
         });
 
@@ -70,13 +60,15 @@ public class ListaFrasesActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClicked(final RecyclerView recyclerView, int position, View v) {
                 final View view = v;
-                Frase frase = new Frase();
+                Frase fraseSelecionada = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
-                DaoFrase dao1 = new DaoFrase(v.getContext());
-                frases = dao1.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
-                frase = frases.get(position);
-                final Frase fraseSelecionada = frase;
-                String pergunta = frase.isFavorito() == true ? " remover dos favoritos " : " favoritar ";
+                DaoFrase daoFrase = new DaoFrase(v.getContext());
+                frases = daoFrase.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
+                fraseSelecionada = frases.get(position);
+                final Frase fraseFinal = fraseSelecionada;
+
+                String pergunta = fraseSelecionada.isFavorito() == true ? " remover dos favoritos " : " favoritar ";
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Confirmação")
                         .setMessage("Tem certeza que deseja" + pergunta + " esta frase?")
@@ -84,8 +76,8 @@ public class ListaFrasesActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 DaoFrase dao = new DaoFrase(view.getContext());
-                                dao.favoritar(fraseSelecionada);
-                                showStar(fraseSelecionada);
+                                dao.favoritar(fraseFinal);
+                                util.showButton(btnFav, fraseFinal);
                             }
                         }).setNegativeButton("Cancelar", null).create() .show();
 
@@ -111,51 +103,6 @@ public class ListaFrasesActivity extends AppCompatActivity {
         });
     }
 
-
-    public void buscarDados() {
-        try {
-            db = openOrCreateDatabase("parrotDb", Context.MODE_PRIVATE, null);
-            cursor = db.rawQuery("SELECT * FROM Frase", null);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void criarListagem() {
-        listaFrases = (ListView) findViewById(R.id.listaFrasesId);
-        int indiceColunaId = cursor.getColumnIndex("id");
-        int indiceColunaOriginal = cursor.getColumnIndex("original");
-        int indiceColunaTraducao = cursor.getColumnIndex("traducao");
-        int indiceColunaCategoria = cursor.getColumnIndex("categoria");
-        int indiceColunaFavorito = cursor.getColumnIndex("favorito");
-        try {
-            ArrayList<String> frases = new ArrayList<String>();
-            ArrayList<String> traducoes = new ArrayList<String>();
-            ad = new ArrayAdapter<String>(getApplicationContext(),
-                    android.R.layout.simple_list_item_1,
-                    android.R.id.text1,
-                    frases
-            );
-
-            listaFrases.setAdapter(ad);
-
-            //LISTAR TAREFAS
-            cursor.moveToFirst();
-
-            while (cursor != null) {
-                Log.i("Resultado - ", "Tarefa " + cursor.getString(indiceColunaOriginal));
-                frases.add(cursor.getString(indiceColunaOriginal));
-                traducoes.add(cursor.getString(indiceColunaTraducao));
-                //ADICIONAR O RESTO DEPOIS NAO ESQUECE
-                //add(Integer.parseInt(cursor.getString(indiceColunaId)));
-                cursor.moveToNext();
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void configurarRecycler() {
         // Configurando o gerenciador de layout para ser uma lista.
         recyclerView = (RecyclerView)findViewById(R.id.listaFrasesId);
@@ -164,7 +111,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         DaoFrase dao = new DaoFrase(this);
-        adapter = new FraseAdapter(dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada));
+        FraseAdapter adapter = new FraseAdapter(dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }

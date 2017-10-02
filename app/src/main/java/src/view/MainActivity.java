@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddFrases = (Button) findViewById(R.id.btnAddFrasesId);
         btnSair = (Button) findViewById(R.id.btnSairId);
 
+
         btnSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

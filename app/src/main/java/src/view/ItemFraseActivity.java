@@ -15,10 +15,6 @@ public class ItemFraseActivity extends RecyclerView.ViewHolder {
     public ItemFraseActivity(View itemView) {
         super(itemView);
         btnDelete = (ImageView) itemView.findViewById(R.id.btnDeleteId);
-
         frase = (TextView) itemView.findViewById(R.id.itemFraseId);
-
-
-
     }
 }

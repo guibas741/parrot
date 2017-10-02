@@ -1,20 +1,18 @@
 package src.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by Windows on 04/09/2017.
  */
 
 public class Categoria {
     private int id;
+    private String tituloBanco;
     private String titulo;
-    private ArrayList<Frase> frases;
 
-    public Categoria(int id, String titulo, ArrayList<Frase> frases) {
+    public Categoria(int id, String titulo, String tituloBanco) {
         this.id = id;
         this.titulo = titulo;
-        this.frases = frases;
+        this.tituloBanco = tituloBanco;
     }
 
     public Categoria() {
@@ -36,11 +34,12 @@ public class Categoria {
         this.titulo = titulo;
     }
 
-    public ArrayList<Frase> getFrases() {
-        return frases;
+    public String getTituloBanco() {
+        return tituloBanco;
     }
 
-    public void setFrases(ArrayList<Frase> frases) {
-        this.frases = frases;
+    public void setTituloBanco(String tituloBanco) {
+        this.tituloBanco = tituloBanco;
     }
+
 }
