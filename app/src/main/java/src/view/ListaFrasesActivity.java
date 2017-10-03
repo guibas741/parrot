@@ -21,6 +21,7 @@ import src.controller.FraseAdapter;
 import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.ItemClickSupport;
+import src.util.Util;
 
 public class ListaFrasesActivity extends AppCompatActivity {
 
@@ -28,12 +29,14 @@ public class ListaFrasesActivity extends AppCompatActivity {
     private TextView traducaoSelecionada;
     private ImageView btnAudio, btnFav;
     private TextToSpeech tts;
+    private Util util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_frases);
         configurarRecycler();
+        util = new Util();
 
         traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
         btnAudio = (ImageView) findViewById(R.id.btnAudioId);
@@ -49,7 +52,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
                 frases = dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
                 frase = frases.get(position);
                 traducaoSelecionada.setText(frase.getFraseTraduzida());
-                showStar(frase);
+                util.showButton(btnFav, frase);
             }
         });
 
@@ -74,7 +77,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 DaoFrase dao = new DaoFrase(view.getContext());
                                 dao.favoritar(fraseFinal);
-                                showStar(fraseFinal);
+                                util.showButton(btnFav, fraseFinal);
                             }
                         }).setNegativeButton("Cancelar", null).create() .show();
 

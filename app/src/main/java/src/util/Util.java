@@ -4,9 +4,13 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import src.model.Frase;
 
 /**
  * Created by Windows on 19/09/2017.
@@ -46,10 +50,10 @@ public class Util {
         Toast.makeText(context, text, length).show();
     }
 
-    public boolean fieldIsNull(EditText text, Context context) {
+    public boolean fieldIsNull(EditText text, Context context, String campoNome) {
         if(text == null || text.getText().toString().isEmpty()) {
             text.requestFocus();
-            makeToast("Os campos frase original e tradução não podem ser vazios!", context, Toast.LENGTH_SHORT);
+            makeToast("O campo " + campoNome + " não pode ser vazio!", context, Toast.LENGTH_SHORT);
             return false;
         } else {
             return true;
@@ -59,6 +63,11 @@ public class Util {
     public void setFont(Button text, Context context) {
         Typeface font = Typeface.createFromAsset(context.getAssets(), "Somatic-Rounded.ttf");
         text.setTypeface(font);
+    }
+
+    public void showButton(ImageView btn, Frase f) {
+        if(f.isFavorito()) btn.setVisibility(View.VISIBLE);
+        else btn.setVisibility(View.INVISIBLE);
     }
 
 }

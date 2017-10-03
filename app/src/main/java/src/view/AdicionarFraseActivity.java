@@ -72,14 +72,16 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         btnAddFrase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean campoTexto = util.fieldIsNull(txtFraseOriginal, v.getContext());
-                boolean campoTraducao = util.fieldIsNull(txtFraseTraduzida, v.getContext());
+                boolean campoTexto = util.fieldIsNull(txtFraseOriginal, v.getContext(), "Frase Original");
+                boolean campoTraducao = util.fieldIsNull(txtFraseTraduzida, v.getContext(), "Tradução");
                 if(campoTexto && campoTraducao) {
                     Frase f = new Frase();
                     f.setFraseOriginal(txtFraseOriginal.getText().toString());
                     f.setFraseTraduzida(txtFraseTraduzida.getText().toString());
                     f.setCategoria(spnCategoria.getSelectedItem().toString());
                     f.setFavorito(favorito.isChecked());
+                    f.setIdiomaOriginal("pt");
+                    f.setIdiomaTraducao("en");
 
                     DaoFrase c = new DaoFrase(getApplicationContext());
 
@@ -102,9 +104,8 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         btnTraduzir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean campoTexto = util.fieldIsNull(txtFraseOriginal, v.getContext());
-                boolean campoTraducao = util.fieldIsNull(txtFraseTraduzida, v.getContext());
-                if(campoTexto && campoTraducao) {
+                boolean campoTexto = util.fieldIsNull(txtFraseOriginal, v.getContext(), "Frase Original");
+                if(campoTexto) {
 
                     boolean connected = util.isConnected(v.getContext());
 
