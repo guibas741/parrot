@@ -2,10 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="src.view.CategoriasActivity"
-    android:background="@android:color/white">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/btnSaudeId"
@@ -28,10 +26,6 @@
         android:id="@+id/btnAlimentacaoId"
         android:layout_width="300dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Alimentação"
         android:textColor="#ffffff"
@@ -39,16 +33,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSaudeId"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintVertical_bias="0.036"
+        tools:layout_editor_absoluteY="98dp"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Button
         android:id="@+id/btnLocalizacaoId"
         android:layout_width="300dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Localização"
         android:textColor="#ffffff"
@@ -58,16 +50,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAlimentacaoId"
         app:layout_constraintVertical_bias="0.068"
-        tools:layout_editor_absoluteX="98dp" />
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="189dp" />
 
     <Button
         android:id="@+id/btnComumId"
         android:layout_width="300dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Comum"
         android:textColor="#ffffff"
@@ -76,16 +65,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLocalizacaoId"
         app:layout_constraintVertical_bias="0.119"
-        tools:layout_editor_absoluteX="90dp" />
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="278dp" />
 
     <Button
         android:id="@+id/btnFavoritosId"
         android:layout_width="300dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:text="Favoritos"
         android:textColor="#ffffff"
@@ -94,5 +80,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnComumId"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintVertical_bias="0.18"
+        tools:layout_editor_absoluteX="28dp"
+        android:layout_marginBottom="8dp" />
+
 </android.support.constraint.ConstraintLayout>

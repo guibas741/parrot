@@ -49,7 +49,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
                 Frase frase = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
                 DaoFrase dao = new DaoFrase(getApplicationContext());
-                frases = dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
+                frases = dao.getFrasesCategoria(FragmentCategorias.categoriaSelecionada);
                 frase = frases.get(position);
                 traducaoSelecionada.setText(frase.getFraseTraduzida());
                 util.showButton(btnFav, frase);
@@ -63,7 +63,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
                 Frase fraseSelecionada = new Frase();
                 ArrayList<Frase> frases = new ArrayList<Frase>();
                 DaoFrase daoFrase = new DaoFrase(v.getContext());
-                frases = daoFrase.getFrasesCategoria(CategoriasActivity.categoriaSelecionada);
+                frases = daoFrase.getFrasesCategoria(FragmentCategorias.categoriaSelecionada);
                 fraseSelecionada = frases.get(position);
                 final Frase fraseFinal = fraseSelecionada;
 
@@ -111,7 +111,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         DaoFrase dao = new DaoFrase(this);
-        FraseAdapter adapter = new FraseAdapter(dao.getFrasesCategoria(CategoriasActivity.categoriaSelecionada));
+        FraseAdapter adapter = new FraseAdapter(dao.getFrasesCategoria(FragmentCategorias.categoriaSelecionada));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }

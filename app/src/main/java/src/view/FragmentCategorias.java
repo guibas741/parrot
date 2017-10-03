@@ -2,8 +2,11 @@ package src.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.parrot.parrot.R;
@@ -14,20 +17,26 @@ import static com.android.parrot.parrot.R.id.btnFavoritosId;
 import static com.android.parrot.parrot.R.id.btnLocalizacaoId;
 import static com.android.parrot.parrot.R.id.btnSaudeId;
 
-public class CategoriasActivity extends AppCompatActivity implements View.OnClickListener{
+/**
+ * Created by Windows on 02/10/2017.
+ */
+
+public class FragmentCategorias extends Fragment implements View.OnClickListener{
+    private static final String TAG = "FragmentCategorias";
 
     private Button btnSaude, btnAlimentacao, btnLocalizacao, btnFavoritos, btnComum;
     public static String categoriaSelecionada;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categorias);
 
-        btnSaude = (Button) findViewById(btnSaudeId);
-        btnAlimentacao = (Button) findViewById(btnAlimentacaoId);
-        btnLocalizacao = (Button) findViewById(btnLocalizacaoId);
-        btnFavoritos = (Button) findViewById(btnFavoritosId);
-        btnComum = (Button) findViewById(btnComumId);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_categorias, container, false);
+
+        btnSaude = (Button) view.findViewById(btnSaudeId);
+        btnAlimentacao = (Button) view.findViewById(btnAlimentacaoId);
+        btnLocalizacao = (Button) view.findViewById(btnLocalizacaoId);
+        btnFavoritos = (Button) view.findViewById(btnFavoritosId);
+        btnComum = (Button) view.findViewById(btnComumId);
 
         btnSaude.setOnClickListener(this);
         btnAlimentacao.setOnClickListener(this);
@@ -35,6 +44,7 @@ public class CategoriasActivity extends AppCompatActivity implements View.OnClic
         btnFavoritos.setOnClickListener(this);
         btnComum.setOnClickListener(this);
 
+        return view;
     }
 
     @Override
@@ -58,9 +68,9 @@ public class CategoriasActivity extends AppCompatActivity implements View.OnClic
 
         }
         if("favoritos".equals(categoriaSelecionada)) {
-            startActivity(new Intent(CategoriasActivity.this, ListaFavoritosActivity.class));
+            startActivity(new Intent(getActivity(), ListaFavoritosActivity.class));
         } else {
-            startActivity(new Intent(CategoriasActivity.this, ListaFrasesActivity.class));
+            startActivity(new Intent(getActivity(), ListaFrasesActivity.class));
         }
 
     }

@@ -1,11 +1,13 @@
 package src.view;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,14 +28,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import src.dao.DaoFrase;
-import src.model.Categoria;
 import src.model.Frase;
 import src.util.Util;
 
-public class AdicionarFraseActivity extends AppCompatActivity {
+/**
+ * Created by Windows on 02/10/2017.
+ */
+
+public class FragmentAdicionarFrase extends Fragment {
+    private static final String TAG = "FragmentAdicionar";
 
     private Button btnAddFrase, btnCategorias, btnTraduzir;
     private EditText txtFraseOriginal, txtFraseTraduzida;
@@ -41,33 +46,34 @@ public class AdicionarFraseActivity extends AppCompatActivity {
     private Spinner spnCategoria;
     private Util util;
 
+
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adicionar_frase);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_adicionar_frase, container, false);
 
         util = new Util();
-        btnAddFrase = (Button) findViewById(R.id.btnAddFrasesId);
-        btnCategorias = (Button) findViewById(R.id.btnCategoriaId);
-        btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
+        btnAddFrase = (Button) view.findViewById(R.id.btnAddFrasesId);
+        btnCategorias = (Button) view.findViewById(R.id.btnCategoriaId);
+        btnTraduzir = (Button) view.findViewById(R.id.btnTraduzirId);
 
-        txtFraseOriginal = (EditText) findViewById(R.id.txtFraseOriginalId);
-        txtFraseTraduzida = (EditText) findViewById(R.id.txtFraseTraduzidaId);
+        txtFraseOriginal = (EditText) view.findViewById(R.id.txtFraseOriginalId);
+        txtFraseTraduzida = (EditText) view.findViewById(R.id.txtFraseTraduzidaId);
 
-        favorito = (CheckBox) findViewById(R.id.favoritoId);
+        favorito = (CheckBox) view.findViewById(R.id.favoritoId);
 
-        DaoFrase c = new DaoFrase(getApplicationContext());
+        DaoFrase c = new DaoFrase(view.getContext());
         c.createTable();
 
-        spnCategoria = (Spinner) findViewById(R.id.spnCategoriaId);
+        spnCategoria = (Spinner) view.findViewById(R.id.spnCategoriaId);
 
         String[] items = new String[]{"saude", "alimentacao", "localizacao", "comum", "personalizado"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-
-
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
 
         spnCategoria.setAdapter(adapter);
+
 
         btnAddFrase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,12 +89,12 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                     f.setIdiomaOriginal("pt");
                     f.setIdiomaTraducao("en");
 
-                    DaoFrase c = new DaoFrase(getApplicationContext());
+                    DaoFrase c = new DaoFrase(v.getContext());
 
                     if (c.insertFrase(f)) {
-                        util.makeToast("Frase inserida com sucesso", getApplicationContext(), Toast.LENGTH_LONG);
+                        util.makeToast("Frase inserida com sucesso", v.getContext(), Toast.LENGTH_LONG);
                     } else {
-                        util.makeToast("Frase não inserida", getApplicationContext(), Toast.LENGTH_LONG);
+                        util.makeToast("Frase não inserida", v.getContext(), Toast.LENGTH_LONG);
                     }
                 }
             }
@@ -97,7 +103,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         btnCategorias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), CategoriasActivity.class));
+                ((MainActivity)getActivity()).setViewPager(1);
             }
         });
 
@@ -120,15 +126,16 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
+        return view;
+    }
 
     public class JSONTask extends AsyncTask<String, String, String> {
         ProgressDialog pd;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = new ProgressDialog(AdicionarFraseActivity.this);
+            pd = new ProgressDialog(getActivity());
             pd.setMessage("Traduzindo");
             pd.show();
         }
@@ -182,18 +189,5 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             if (pd != null) pd.dismiss();
             txtFraseTraduzida.setText(result.toString());
         }
-    }
-
-    private void setData() {
-        ArrayList<Categoria> categorias = new ArrayList<>();
-        categorias.add(new Categoria(1, "Saúde", "saude"));
-        categorias.add(new Categoria(2, "Alimentação", "alimentacao"));
-        categorias.add(new Categoria(3, "Localização", "localizacao"));
-        categorias.add(new Categoria(4, "Comum", "comum"));
-
-        ArrayAdapter<Categoria> adapter = new ArrayAdapter<Categoria>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, categorias);
-        spnCategoria.setAdapter(adapter);
-        spnCategoria.setSelection(adapter.getPosition(categorias.get(3)));
-
     }
 }

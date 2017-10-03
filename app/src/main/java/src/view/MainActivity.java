@@ -1,45 +1,45 @@
 package src.view;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
 
 import com.android.parrot.parrot.R;
 
+import src.controller.SectionsStatePagerAdapter;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnCategorias, btnAddFrases, btnSair;
+    private static final String TAG = "MainActivity";
+    private SectionsStatePagerAdapter mSectionsStatePagerAdapter;
+    private ViewPager mViewPager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
+        Log.d(TAG, "ON CREATE STARTED");
 
-        btnCategorias = (Button) findViewById(R.id.btnCategoriaId);
-        btnAddFrases = (Button) findViewById(R.id.btnAddFrasesId);
-        btnSair = (Button) findViewById(R.id.btnSairId);
+        mSectionsStatePagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
 
+        mViewPager = (ViewPager) findViewById(R.id.container);
 
-        btnSair.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        btnAddFrases.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AdicionarFraseActivity.class));
-            }
-        });
+        setupViewPager(mViewPager);
 
-        btnCategorias.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CategoriasActivity.class));
-            }
-        });
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FragmentMain(), "FragmentMain");
+        adapter.addFragment(new FragmentCategorias(), "FragmentCategorias");
+        adapter.addFragment(new FragmentAdicionarFrase(), "FragmentAdicionarFrase");
+        viewPager.setAdapter(adapter);
+    }
+
+    public void setViewPager(int fragmentNumber) {
+        mViewPager.setCurrentItem(fragmentNumber);
     }
 }

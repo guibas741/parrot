@@ -20,9 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="src.view.AdicionarFraseActivity" />
         <activity android:name="src.view.ListaFrasesActivity" />
-        <activity android:name="src.view.CategoriasActivity" />
         <activity android:name="src.view.ListaFavoritosActivity"></activity>
     </application>
 
