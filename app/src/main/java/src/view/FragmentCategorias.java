@@ -13,7 +13,6 @@ import com.android.parrot.parrot.R;
 
 import static com.android.parrot.parrot.R.id.btnAlimentacaoId;
 import static com.android.parrot.parrot.R.id.btnComumId;
-import static com.android.parrot.parrot.R.id.btnFavoritosId;
 import static com.android.parrot.parrot.R.id.btnLocalizacaoId;
 import static com.android.parrot.parrot.R.id.btnSaudeId;
 
@@ -34,14 +33,12 @@ public class FragmentCategorias extends Fragment implements View.OnClickListener
 
         btnSaude = (Button) view.findViewById(btnSaudeId);
         btnAlimentacao = (Button) view.findViewById(btnAlimentacaoId);
-        btnLocalizacao = (Button) view.findViewById(btnLocalizacaoId);
-        btnFavoritos = (Button) view.findViewById(btnFavoritosId);
+        btnLocalizacao = (Button) view.findViewById(btnLocalizacaoId);;
         btnComum = (Button) view.findViewById(btnComumId);
 
         btnSaude.setOnClickListener(this);
         btnAlimentacao.setOnClickListener(this);
         btnLocalizacao.setOnClickListener(this);
-        btnFavoritos.setOnClickListener(this);
         btnComum.setOnClickListener(this);
 
         return view;
@@ -59,9 +56,9 @@ public class FragmentCategorias extends Fragment implements View.OnClickListener
             case btnLocalizacaoId:
                 categoriaSelecionada = "localizacao";
                 break;
-            case btnFavoritosId:
+           /* case btnFavoritosId:
                 categoriaSelecionada = "favoritos";
-                break;
+                break;*/
             case btnComumId:
                 categoriaSelecionada = "comum";
                 break;
@@ -74,4 +71,6 @@ public class FragmentCategorias extends Fragment implements View.OnClickListener
         }
 
     }
+
+
 }

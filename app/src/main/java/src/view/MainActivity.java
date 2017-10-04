@@ -1,12 +1,15 @@
 package src.view;
 
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.android.parrot.parrot.R;
 
+import src.controller.BottomNavigationViewHelper;
 import src.controller.SectionsStatePagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
         setupViewPager(mViewPager);
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_main);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_categorias);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
     }
+
+
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
