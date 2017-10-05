@@ -25,9 +25,7 @@ android:background="@android:color/white">
                 <android.support.v7.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tabs"
-                    android:title="Favoritos"
-                    android:titleTextColor="#FFFFFF"
+                    android:id="@+id/toolCategoriasId"
                     android:background="@drawable/nav_item_color_state_top"/>
 
             </android.support.design.widget.AppBarLayout>

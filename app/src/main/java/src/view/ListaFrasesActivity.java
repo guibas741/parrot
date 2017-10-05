@@ -2,6 +2,7 @@ package src.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +38,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
     private ImageView btnAudio, btnFav;
     private TextToSpeech tts;
     private Util util;
+    private Toolbar mActionBarToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +67,12 @@ public class ListaFrasesActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
+        String title = "  " + FragmentCategorias.categoriaSelecionada.toString().toUpperCase();
+        mActionBarToolbar = (Toolbar) findViewById(R.id.toolCategoriasId);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle(title);
+        mActionBarToolbar.setTitleTextColor(Color.WHITE);
+        mActionBarToolbar.setLogo(R.mipmap.ic_launcher);
 
         traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
         btnAudio = (ImageView) findViewById(R.id.btnAudioId);

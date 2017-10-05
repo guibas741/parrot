@@ -2,11 +2,13 @@ package src.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +44,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
     private EditText txtFraseOriginal, txtFraseTraduzida;
     private CheckBox favorito;
     private Spinner spnCategoria;
+    private Toolbar mActionBarToolbar;
     private Util util;
 
     @Override
@@ -75,6 +78,13 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             }
         });
 
+
+
+        mActionBarToolbar = (Toolbar) findViewById(R.id.toolAddId);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle("  NOVA FRASE");
+        mActionBarToolbar.setTitleTextColor(Color.WHITE);
+        mActionBarToolbar.setLogo(R.mipmap.ic_launcher);
 
         btnAddFrase = (Button) findViewById(R.id.btnAddFrasesId);
         btnCategorias = (Button) findViewById(R.id.btnCategoriaId);

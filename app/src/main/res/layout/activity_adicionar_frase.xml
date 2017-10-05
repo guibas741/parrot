@@ -25,7 +25,7 @@
                 <android.support.v7.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/toolAdd"
+                    android:id="@+id/toolAddId"
                     android:title="Adicionar"
                     android:titleTextColor="#ffffff"
                     android:background="@drawable/nav_item_color_state_top"/>
