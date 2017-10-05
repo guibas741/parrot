@@ -1,22 +1,28 @@
 package src.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
 import src.controller.BottomNavigationViewHelper;
 import src.controller.SectionsStatePagerAdapter;
+import src.util.Util;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private SectionsStatePagerAdapter mSectionsStatePagerAdapter;
     private ViewPager mViewPager;
+    private Util util;
 
 
 
@@ -37,10 +43,28 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_main);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_categorias);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_fav);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.action_add:
+                        startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
+                        break;
+                    case R.id.favoritos:
+                        startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                        break;
+                    case R.id.exit:
+                        Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
 

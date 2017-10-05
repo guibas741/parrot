@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name="src.view.ListaFrasesActivity" />
-        <activity android:name="src.view.ListaFavoritosActivity"></activity>
+        <activity android:name="src.view.ListaFavoritosActivity" />
+        <activity android:name="src.view.AdicionarFraseActivity"></activity>
     </application>
 
 </manifest>
