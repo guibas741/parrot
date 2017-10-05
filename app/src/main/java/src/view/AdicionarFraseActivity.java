@@ -1,9 +1,14 @@
 package src.view;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,6 +31,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import src.controller.BottomNavigationViewHelper;
 import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.Util;
@@ -43,6 +49,33 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_frase);
         util = new Util();
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.action_add:
+                       // startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
+                        break;
+                    case R.id.favoritos:
+                        startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                        break;
+                    case R.id.exit:
+                        Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return false;
+            }
+        });
+
+
         btnAddFrase = (Button) findViewById(R.id.btnAddFrasesId);
         btnCategorias = (Button) findViewById(R.id.btnCategoriaId);
         btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);

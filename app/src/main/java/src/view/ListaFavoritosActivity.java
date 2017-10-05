@@ -1,13 +1,20 @@
 package src.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
+import src.controller.BottomNavigationViewHelper;
 import src.controller.FraseAdapter;
 import src.dao.DaoFrase;
 
@@ -21,6 +28,32 @@ public class ListaFavoritosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_favoritos);
         configurarRecycler();
+
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.action_add:
+                        startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
+                        break;
+                    case R.id.favoritos:
+                        //startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                        break;
+                    case R.id.exit:
+                        Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void configurarRecycler() {

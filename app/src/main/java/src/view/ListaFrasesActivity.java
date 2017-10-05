@@ -1,22 +1,28 @@
 package src.view;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+import src.controller.BottomNavigationViewHelper;
 import src.controller.FraseAdapter;
 import src.dao.DaoFrase;
 import src.model.Frase;
@@ -37,6 +43,29 @@ public class ListaFrasesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_frases);
         configurarRecycler();
         util = new Util();
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.action_add:
+                        startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
+                        break;
+                    case R.id.favoritos:
+                        startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                        break;
+                    case R.id.exit:
+                        Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return false;
+            }
+        });
+
+
 
         traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
         btnAudio = (ImageView) findViewById(R.id.btnAudioId);
