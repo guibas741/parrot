@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_main);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_categorias);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_fav);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_build);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

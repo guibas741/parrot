@@ -8,14 +8,14 @@
     android:background="@android:color/white">
 
     <RelativeLayout
+        android:id="@+id/relLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/relLayout">
+        android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/relLayoutTopBar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/relLayoutTopBar"
             android:layout_alignParentTop="true">
 
             <android.support.design.widget.AppBarLayout
@@ -23,21 +23,21 @@
                 android:layout_height="wrap_content">
 
                 <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tabs"
-                    android:background="@drawable/nav_item_color_state_top"/>
+                    android:background="@drawable/nav_item_color_state_top" />
 
             </android.support.design.widget.AppBarLayout>
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relLayoutMiddle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/relLayoutMiddle"
-            android:layout_below="@+id/relLayoutTopBar"
-            android:layout_above="@+id/relLayoutBottomBar">
+            android:layout_above="@+id/relLayoutBottomBar"
+            android:layout_below="@+id/relLayoutTopBar">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/container"
@@ -54,19 +54,19 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relLayoutBottomBar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/relLayoutBottomBar"
             android:layout_alignParentBottom="true">
-            
+
             <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottomNavView_Bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/bottomNavView_Bar"
-                android:background="@drawable/nav_item_color_state_top"
-                app:menu="@menu/bottom_navigation_main"
+                android:background="@drawable/nav_item_color_state_bottom"
+                app:itemIconTint="@android:color/white"
                 app:itemTextColor="@android:color/white"
-                app:itemIconTint="@android:color/white">
+                app:menu="@menu/bottom_navigation_main">
 
 
             </android.support.design.widget.BottomNavigationView>

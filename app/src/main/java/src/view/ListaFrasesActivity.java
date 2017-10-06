@@ -30,6 +30,8 @@ import src.model.Frase;
 import src.util.ItemClickSupport;
 import src.util.Util;
 
+import static src.view.FragmentConfiguracao.idiomaTraducao;
+
 public class ListaFrasesActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -136,7 +138,11 @@ public class ListaFrasesActivity extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                    tts.setLanguage(Locale.ENGLISH);
+                    if("ingles".equals(idiomaTraducao)) {
+                        tts.setLanguage(Locale.ENGLISH);
+                    } else if("alemao".equals(idiomaTraducao)) {
+                        tts.setLanguage(Locale.GERMAN);
+                    }
                 }
             }
         });

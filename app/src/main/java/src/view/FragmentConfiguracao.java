@@ -20,7 +20,7 @@ public class FragmentConfiguracao extends Fragment {
 
     private Spinner spnOriginal, spnTraducao;
     private Button btnSalvarConfigId;
-    public static String idiomaOriginal, idiomaTraducao, codOriginal, codTraducao;
+    public static String idiomaOriginal = "portugues", idiomaTraducao = "ingles", codOriginal = "pt", codTraducao = "en";
 
     @Nullable
     @Override
