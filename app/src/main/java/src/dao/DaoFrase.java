@@ -125,7 +125,9 @@ public class DaoFrase extends SQLiteOpenHelper {
     public ArrayList<Frase> getFavoritos() {
         openDB();
         ArrayList<Frase> fArray = new ArrayList<>();
-        String getFrases = "SELECT * FROM " + TABELA + " WHERE favorito = 'true'";
+        String getFrases = "SELECT * FROM " + TABELA + " WHERE favorito = 'true' " +
+                " AND idiomaOriginal = '" + idiomaOriginal + "' " +
+                " AND idiomaTraducao = '" + idiomaTraducao +"'";
 
         try {
             Cursor c = db.rawQuery(getFrases, null);
