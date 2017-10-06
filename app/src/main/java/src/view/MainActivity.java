@@ -56,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()) {
                     case R.id.action_add:
-                        startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
+                        startActivity(new Intent(getApplication(), AdicionarFraseActivity.class).putExtra("From", "Main"));
                         break;
                     case R.id.favoritos:
-                        startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                        startActivity(new Intent(getApplication(), ListaFavoritosActivity.class).putExtra("From", "Main"));
                         break;
                     case R.id.exit:
                         Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();

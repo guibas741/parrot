@@ -63,12 +63,16 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = getIntent();
+                String activity = intent.getStringExtra("from");
+
                 switch(item.getItemId()) {
                     case R.id.action_add:
                        // startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
                         break;
                     case R.id.favoritos:
-                        startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                        if(!"Fav".equals(activity))startActivity(new Intent(getApplication(), ListaFavoritosActivity.class).putExtra("from", "Add"));
+                        else finish();
                         break;
                     case R.id.exit:
                         Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();

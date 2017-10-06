@@ -40,9 +40,13 @@ public class ListaFavoritosActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = getIntent();
+                String activity = intent.getStringExtra("from");
+
                 switch(item.getItemId()) {
                     case R.id.action_add:
-                        startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
+                        if(!"Add".equals(activity)) startActivity(new Intent(getApplication(), AdicionarFraseActivity.class).putExtra("from", "Fav"));
+                        else finish();
                         break;
                     case R.id.favoritos:
                         //startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
