@@ -38,6 +38,9 @@ import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.Util;
 
+import static src.view.FragmentConfiguracao.idiomaOriginal;
+import static src.view.FragmentConfiguracao.idiomaTraducao;
+
 public class AdicionarFraseActivity extends AppCompatActivity {
 
     private Button btnAddFrase, btnCategorias, btnTraduzir;
@@ -122,8 +125,8 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                     f.setFraseTraduzida(txtFraseTraduzida.getText().toString());
                     f.setCategoria(spnCategoria.getSelectedItem().toString());
                     f.setFavorito(favorito.isChecked());
-                    f.setIdiomaOriginal("pt");
-                    f.setIdiomaTraducao("en");
+                    f.setIdiomaOriginal(idiomaOriginal);
+                    f.setIdiomaTraducao(idiomaTraducao);
 
                     DaoFrase c = new DaoFrase(v.getContext());
 
@@ -154,7 +157,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                     if (connected) {
                         String fraseString = txtFraseOriginal.getText().toString();
                         String idiomas = "pt-en";
-                        String yandexUrl = util.urlBuilder(util.KEY, fraseString, idiomas);
+                        String yandexUrl = util.urlBuilder(util.KEY, fraseString);
                         new JSONTask().execute(yandexUrl);
                     } else {
                         util.makeToast("É necessário estar conectado na internet para utilizar a funcionalidade de tradução", v.getContext(), Toast.LENGTH_SHORT);

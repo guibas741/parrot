@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import src.model.Frase;
 
+import static src.view.FragmentConfiguracao.codOriginal;
+import static src.view.FragmentConfiguracao.codTraducao;
+
 /**
  * Created by Windows on 19/09/2017.
  */
@@ -40,7 +43,8 @@ public class Util {
         return false;
     }*/
 
-    public String urlBuilder(String key, String frase, String idiomas) {
+    public String urlBuilder(String key, String frase) {
+        String idiomas = codOriginal + "-" + codTraducao;
         String fraseFinal = frase.replace(" ", "%20");
         return "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + key +
                 "&text=" + fraseFinal + "&lang=" + idiomas;

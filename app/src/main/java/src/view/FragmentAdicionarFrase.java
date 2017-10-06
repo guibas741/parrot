@@ -86,8 +86,6 @@ public class FragmentAdicionarFrase extends Fragment {
                     f.setFraseTraduzida(txtFraseTraduzida.getText().toString());
                     f.setCategoria(spnCategoria.getSelectedItem().toString());
                     f.setFavorito(favorito.isChecked());
-                    f.setIdiomaOriginal("pt");
-                    f.setIdiomaTraducao("en");
 
                     DaoFrase c = new DaoFrase(v.getContext());
 
@@ -117,8 +115,7 @@ public class FragmentAdicionarFrase extends Fragment {
 
                     if (connected) {
                         String fraseString = txtFraseOriginal.getText().toString();
-                        String idiomas = "pt-en";
-                        String yandexUrl = util.urlBuilder(util.KEY, fraseString, idiomas);
+                        String yandexUrl = util.urlBuilder(util.KEY, fraseString);
                         new JSONTask().execute(yandexUrl);
                     } else {
                         util.makeToast("É necessário estar conectado na internet para utilizar a funcionalidade de tradução", v.getContext(), Toast.LENGTH_SHORT);

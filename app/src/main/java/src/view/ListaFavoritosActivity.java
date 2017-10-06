@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
@@ -52,7 +51,7 @@ public class ListaFavoritosActivity extends AppCompatActivity {
                         //startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
                         break;
                     case R.id.exit:
-                        Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                 }
                 return false;

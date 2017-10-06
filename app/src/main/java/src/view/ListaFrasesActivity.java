@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
@@ -53,15 +52,19 @@ public class ListaFrasesActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = getIntent();
+                String activity = intent.getStringExtra("from");
                 switch(item.getItemId()) {
                     case R.id.action_add:
-                        startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
+                        if(!"Add".equals(activity))startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
+                        else finish();
                         break;
                     case R.id.favoritos:
-                        startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                        if(!"Fav".equals(activity))startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                        else finish();
                         break;
                     case R.id.exit:
-                        Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                 }
                 return false;

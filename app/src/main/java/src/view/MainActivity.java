@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
 
@@ -47,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-        /*Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);*/
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -62,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplication(), ListaFavoritosActivity.class).putExtra("From", "Main"));
                         break;
                     case R.id.exit:
-                        Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                 }
                 return false;
@@ -76,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FragmentMain(), "FragmentMain");
         adapter.addFragment(new FragmentCategorias(), "FragmentCategorias");
-        adapter.addFragment(new FragmentAdicionarFrase(), "FragmentAdicionarFrase");
+        adapter.addFragment(new FragmentConfiguracao(), "FragmentConfiguracao");
         viewPager.setAdapter(adapter);
     }
 

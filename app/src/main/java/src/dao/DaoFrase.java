@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import src.model.Frase;
 
+import static src.view.FragmentConfiguracao.idiomaOriginal;
+import static src.view.FragmentConfiguracao.idiomaTraducao;
+
 /**
  * Created by Windows on 09/09/2017.
  */
@@ -188,7 +191,11 @@ public class DaoFrase extends SQLiteOpenHelper {
     public ArrayList<Frase> getFrasesCategoria(String categoria) {
         openDB();
         ArrayList<Frase> fArray = new ArrayList<>();
-        String getFrases = "SELECT * FROM " + TABELA + " WHERE categoria = '" + categoria + "'" ;
+        String getFrases =
+                "SELECT * FROM " + TABELA + " " +
+                "WHERE categoria = '" + categoria + "'" +
+                " AND idiomaOriginal = '" + idiomaOriginal +
+                "' AND idiomaTraducao = '" + idiomaTraducao +"'" ;
 
         try {
             Cursor c = db.rawQuery(getFrases, null);
