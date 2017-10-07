@@ -43,7 +43,7 @@ import static src.view.FragmentConfiguracao.idiomaTraducao;
 
 public class AdicionarFraseActivity extends AppCompatActivity {
 
-    private Button btnAddFrase, btnCategorias, btnTraduzir;
+    private Button btnAddFrase, btnTraduzir;
     private EditText txtFraseOriginal, txtFraseTraduzida;
     private CheckBox favorito;
     private Spinner spnCategoria;
@@ -70,15 +70,12 @@ public class AdicionarFraseActivity extends AppCompatActivity {
                 String activity = intent.getStringExtra("from");
 
                 switch(item.getItemId()) {
-                    case R.id.action_add:
-                       // startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
-                        break;
                     case R.id.favoritos:
                         if(!"Fav".equals(activity))startActivity(new Intent(getApplication(), ListaFavoritosActivity.class).putExtra("from", "Add"));
                         else finish();
                         break;
                     case R.id.exit:
-                        Toast.makeText(getApplication(),"fechou", Toast.LENGTH_SHORT).show();
+                        finish();
                         break;
                 }
                 return false;
@@ -94,7 +91,6 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         mActionBarToolbar.setLogo(R.mipmap.ic_launcher);
 
         btnAddFrase = (Button) findViewById(R.id.btnConfigId);
-        btnCategorias = (Button) findViewById(R.id.btnCategoriaId);
         btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
 
         txtFraseOriginal = (EditText) findViewById(R.id.txtFraseOriginalId);
@@ -107,7 +103,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
         spnCategoria = (Spinner) findViewById(R.id.spnCategoriaId);
 
-        String[] items = new String[]{"saude", "alimentacao", "localizacao", "comum", "personalizado"};
+        String[] items = new String[]{"saude", "alimentacao", "localizacao", "comum"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
 
@@ -132,6 +128,9 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
                     if (c.insertFrase(f)) {
                         util.makeToast("Frase inserida com sucesso", v.getContext(), Toast.LENGTH_LONG);
+                        txtFraseOriginal.setText("");
+                        txtFraseTraduzida.setText("");
+                        favorito.setChecked(false);
                     } else {
                         util.makeToast("Frase não inserida", v.getContext(), Toast.LENGTH_LONG);
                     }
@@ -139,12 +138,6 @@ public class AdicionarFraseActivity extends AppCompatActivity {
             }
         });
 
-        btnCategorias.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 //((MainActivity).setViewPager(1);
-            }
-        });
 
         btnTraduzir.setOnClickListener(new View.OnClickListener() {
             @Override
