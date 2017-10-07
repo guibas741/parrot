@@ -17,7 +17,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.29" />
+        app:layout_constraintVertical_bias="0.197" />
 
     <Spinner
         android:id="@+id/spnTraducaoId"
@@ -31,7 +31,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.702" />
+        app:layout_constraintVertical_bias="0.616" />
 
     <TextView
         android:id="@+id/txtOriginal"
@@ -48,7 +48,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.154"
-        app:layout_constraintVertical_bias="0.91" />
+        app:layout_constraintVertical_bias="0.807" />
 
     <TextView
         android:id="@+id/txtTraducao"
@@ -65,11 +65,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.979" />
+        app:layout_constraintVertical_bias="0.956" />
 
     <Button
         android:id="@+id/btnSalvarConfigId"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
@@ -78,9 +78,10 @@
         android:background="@drawable/mybutton"
         android:text="Salvar"
         android:textColor="#ffffff"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94" />
+        app:layout_constraintVertical_bias="0.85" />
 </android.support.constraint.ConstraintLayout>
