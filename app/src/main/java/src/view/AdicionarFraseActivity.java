@@ -56,6 +56,21 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_adicionar_frase);
         util = new Util();
 
+        btnAddFrase = (Button) findViewById(R.id.btnConfigId);
+        btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
+        txtFraseOriginal = (EditText) findViewById(R.id.txtFraseOriginalId);
+        txtFraseTraduzida = (EditText) findViewById(R.id.txtFraseTraduzidaId);
+        favorito = (CheckBox) findViewById(R.id.favoritoId);
+        spnCategoria = (Spinner) findViewById(R.id.spnCategoriaId);
+
+
+        mActionBarToolbar = (Toolbar) findViewById(R.id.toolAddId);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle("  NOVA FRASE");
+        mActionBarToolbar.setTitleTextColor(Color.WHITE);
+        mActionBarToolbar.setLogo(R.mipmap.ic_launcher);
+
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
@@ -83,30 +98,8 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         });
 
 
-
-        mActionBarToolbar = (Toolbar) findViewById(R.id.toolAddId);
-        setSupportActionBar(mActionBarToolbar);
-        getSupportActionBar().setTitle("  NOVA FRASE");
-        mActionBarToolbar.setTitleTextColor(Color.WHITE);
-        mActionBarToolbar.setLogo(R.mipmap.ic_launcher);
-
-        btnAddFrase = (Button) findViewById(R.id.btnConfigId);
-        btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
-
-        txtFraseOriginal = (EditText) findViewById(R.id.txtFraseOriginalId);
-        txtFraseTraduzida = (EditText) findViewById(R.id.txtFraseTraduzidaId);
-
-        favorito = (CheckBox) findViewById(R.id.favoritoId);
-
-        DaoFrase c = new DaoFrase(getApplicationContext());
-        c.createTable();
-
-        spnCategoria = (Spinner) findViewById(R.id.spnCategoriaId);
-
         String[] items = new String[]{"saude", "alimentacao", "localizacao", "comum"};
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-
         spnCategoria.setAdapter(adapter);
 
 

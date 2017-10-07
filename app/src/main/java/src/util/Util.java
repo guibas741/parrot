@@ -27,21 +27,8 @@ public class Util {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-
-        //CHECAR COMO DAR UM PING
     }
 
-    /*public Boolean isOnline() {
-        try {
-            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
-            int returnVal = p1.waitFor();
-            boolean reachable = (returnVal==0);
-            return reachable;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }*/
 
     public String urlBuilder(String key, String frase) {
         String idiomas = codOriginal + "-" + codTraducao;
@@ -73,5 +60,6 @@ public class Util {
         if(f.isFavorito()) btn.setVisibility(View.VISIBLE);
         else btn.setVisibility(View.INVISIBLE);
     }
+
 
 }

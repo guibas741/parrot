@@ -48,6 +48,18 @@ public class ListaFrasesActivity extends AppCompatActivity {
         configurarRecycler();
         util = new Util();
 
+        traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
+        btnAudio = (ImageView) findViewById(R.id.btnAudioId);
+        btnFav = (ImageView) findViewById(R.id.favId);
+
+        String title = "  " + FragmentCategorias.categoriaSelecionada.toString().toUpperCase();
+        mActionBarToolbar = (Toolbar) findViewById(R.id.toolCategoriasId);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle(title);
+        mActionBarToolbar.setTitleTextColor(Color.WHITE);
+        mActionBarToolbar.setLogo(R.mipmap.ic_launcher);
+
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -73,16 +85,6 @@ public class ListaFrasesActivity extends AppCompatActivity {
             }
         });
 
-        String title = "  " + FragmentCategorias.categoriaSelecionada.toString().toUpperCase();
-        mActionBarToolbar = (Toolbar) findViewById(R.id.toolCategoriasId);
-        setSupportActionBar(mActionBarToolbar);
-        getSupportActionBar().setTitle(title);
-        mActionBarToolbar.setTitleTextColor(Color.WHITE);
-        mActionBarToolbar.setLogo(R.mipmap.ic_launcher);
-
-        traducaoSelecionada = (TextView) findViewById(R.id.traducaoSelecionadaId);
-        btnAudio = (ImageView) findViewById(R.id.btnAudioId);
-        btnFav = (ImageView) findViewById(R.id.favId);
 
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
