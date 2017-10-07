@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.android.parrot.parrot.R;
 
@@ -23,7 +23,7 @@ import static com.android.parrot.parrot.R.id.btnSaudeId;
 public class FragmentCategorias extends Fragment implements View.OnClickListener{
     private static final String TAG = "FragmentCategorias";
 
-    private Button btnSaude, btnAlimentacao, btnLocalizacao, btnFavoritos, btnComum;
+    private ImageButton btnSaude, btnAlimentacao, btnLocalizacao, btnComum;
     public static String categoriaSelecionada;
 
     @Nullable
@@ -31,10 +31,10 @@ public class FragmentCategorias extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categorias, container, false);
 
-        btnSaude = (Button) view.findViewById(btnSaudeId);
-        btnAlimentacao = (Button) view.findViewById(btnAlimentacaoId);
-        btnLocalizacao = (Button) view.findViewById(btnLocalizacaoId);;
-        btnComum = (Button) view.findViewById(btnComumId);
+        btnSaude = (ImageButton) view.findViewById(btnSaudeId);
+        btnAlimentacao = (ImageButton) view.findViewById(btnAlimentacaoId);
+        btnLocalizacao = (ImageButton) view.findViewById(btnLocalizacaoId);;
+        btnComum = (ImageButton) view.findViewById(btnComumId);
 
         btnSaude.setOnClickListener(this);
         btnAlimentacao.setOnClickListener(this);

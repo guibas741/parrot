@@ -54,7 +54,7 @@ public class FragmentAdicionarFrase extends Fragment {
         View view = inflater.inflate(R.layout.fragment_adicionar_frase, container, false);
 
         util = new Util();
-        btnAddFrase = (Button) view.findViewById(R.id.btnAddFrasesId);
+        btnAddFrase = (Button) view.findViewById(R.id.btnConfigId);
         btnCategorias = (Button) view.findViewById(R.id.btnCategoriaId);
         btnTraduzir = (Button) view.findViewById(R.id.btnTraduzirId);
 

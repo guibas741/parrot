@@ -5,49 +5,48 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageButton
         android:id="@+id/btnSaudeId"
         android:layout_width="150dp"
         android:layout_height="120dp"
-        android:background="@drawable/mybutton"
-        android:text="Saude"
-        android:textColor="#ffffff"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/mybutton"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.036"
-        app:layout_constraintVertical_bias="0.227" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.227"
+        app:srcCompat="@drawable/ic_saude" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnAlimentacaoId"
         android:layout_width="150dp"
         android:layout_height="120dp"
-        android:background="@drawable/mybutton"
-        android:text="Alimentação"
-        android:textColor="#ffffff"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/mybutton"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.963"
-        app:layout_constraintVertical_bias="0.227" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.229"
+        app:srcCompat="@drawable/ic_alimentacao" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnLocalizacaoId"
         android:layout_width="150dp"
         android:layout_height="120dp"
         android:background="@drawable/mybutton"
-        android:text="Localização"
-        android:textColor="#ffffff"
+        app:srcCompat="@drawable/ic_localizacao"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,24 +56,25 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_bias="0.036"
-        app:layout_constraintVertical_bias="0.619" />
+        app:layout_constraintVertical_bias="0.619"
+        android:scaleType="fitXY" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnComumId"
         android:layout_width="150dp"
         android:layout_height="120dp"
-        android:background="@drawable/mybutton"
-        android:text="Comum"
-        android:textColor="#ffffff"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/mybutton"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.963"
-        app:layout_constraintVertical_bias="0.619" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.619"
+        app:srcCompat="@drawable/ic_comum" />
 
 </android.support.constraint.ConstraintLayout>

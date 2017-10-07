@@ -12,8 +12,8 @@ import android.view.MenuItem;
 
 import com.android.parrot.parrot.R;
 
-import src.controller.BottomNavigationViewHelper;
-import src.controller.SectionsStatePagerAdapter;
+import src.adapter.BottomNavigationViewHelper;
+import src.adapter.SectionsStatePagerAdapter;
 import src.util.Util;
 
 public class MainActivity extends AppCompatActivity {

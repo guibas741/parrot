@@ -1,4 +1,4 @@
-package src.controller;
+package src.adapter;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

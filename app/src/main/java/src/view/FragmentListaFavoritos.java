@@ -20,7 +20,7 @@ import com.android.parrot.parrot.R;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import src.controller.FraseAdapter;
+import src.adapter.FraseAdapter;
 import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.ItemClickSupport;

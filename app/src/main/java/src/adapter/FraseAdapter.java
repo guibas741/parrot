@@ -1,4 +1,4 @@
-package src.controller;
+package src.adapter;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;

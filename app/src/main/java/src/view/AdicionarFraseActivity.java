@@ -33,7 +33,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import src.controller.BottomNavigationViewHelper;
+import src.adapter.BottomNavigationViewHelper;
 import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.Util;
@@ -93,7 +93,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         mActionBarToolbar.setTitleTextColor(Color.WHITE);
         mActionBarToolbar.setLogo(R.mipmap.ic_launcher);
 
-        btnAddFrase = (Button) findViewById(R.id.btnAddFrasesId);
+        btnAddFrase = (Button) findViewById(R.id.btnConfigId);
         btnCategorias = (Button) findViewById(R.id.btnCategoriaId);
         btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
 

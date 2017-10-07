@@ -18,7 +18,7 @@ import com.android.parrot.parrot.R;
 public class FragmentMain extends Fragment {
     private static final String TAG = "FragmentMain";
 
-    private Button btnCategorias, btnAddFrases, btnSair;
+    private Button btnCategorias, btnConfig, btnSair;
 
     @Nullable
     @Override
@@ -26,7 +26,7 @@ public class FragmentMain extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         btnCategorias = (Button) view.findViewById(R.id.btnCategoriaId);
-        btnAddFrases = (Button) view.findViewById(R.id.btnAddFrasesId);
+        btnConfig = (Button) view.findViewById(R.id.btnConfigId);
         btnSair = (Button) view.findViewById(R.id.btnSairId);
         Log.d(TAG, "onCreateView started");
 
@@ -37,7 +37,7 @@ public class FragmentMain extends Fragment {
             }
         });
 
-        btnAddFrases.setOnClickListener(new View.OnClickListener() {
+        btnConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setViewPager(2);
