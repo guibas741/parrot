@@ -72,6 +72,7 @@ public class ListaFrasesActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         String title = "  " + FragmentCategorias.categoriaSelecionada.toString().toUpperCase();
         mActionBarToolbar = (Toolbar) findViewById(R.id.toolCategoriasId);
         setSupportActionBar(mActionBarToolbar);
@@ -159,10 +160,5 @@ public class ListaFrasesActivity extends AppCompatActivity {
         FraseAdapter adapter = new FraseAdapter(dao.getFrasesCategoria(FragmentCategorias.categoriaSelecionada));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-    }
-
-    public void showStar(Frase f) {
-        if(f.isFavorito()) btnFav.setVisibility(View.VISIBLE);
-        else btnFav.setVisibility(View.INVISIBLE);
     }
 }

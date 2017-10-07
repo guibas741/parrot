@@ -70,6 +70,8 @@ public class ListaFavoritosActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
         String title = " FAVORITOS";
         mActionBarToolbar = (Toolbar) findViewById(R.id.toolCategoriasId);
         setSupportActionBar(mActionBarToolbar);
@@ -157,10 +159,5 @@ public class ListaFavoritosActivity extends AppCompatActivity {
         FraseAdapter adapter = new FraseAdapter(dao.getFavoritos());
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-    }
-
-    public void showStar(Frase f) {
-        if (f.isFavorito()) btnFav.setVisibility(View.VISIBLE);
-        else btnFav.setVisibility(View.INVISIBLE);
     }
 }
