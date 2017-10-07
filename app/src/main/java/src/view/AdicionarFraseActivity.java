@@ -149,7 +149,6 @@ public class AdicionarFraseActivity extends AppCompatActivity {
 
                     if (connected) {
                         String fraseString = txtFraseOriginal.getText().toString();
-                        String idiomas = "pt-en";
                         String yandexUrl = util.urlBuilder(util.KEY, fraseString);
                         new JSONTask().execute(yandexUrl);
                     } else {
