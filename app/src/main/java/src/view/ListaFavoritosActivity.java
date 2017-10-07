@@ -60,12 +60,7 @@ public class ListaFavoritosActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.action_add:
                         if (!"Add".equals(activity))
-                            startActivity(new Intent(getApplication(), AdicionarFraseActivity.class));
-                        else finish();
-                        break;
-                    case R.id.favoritos:
-                        if (!"Fav".equals(activity))
-                            startActivity(new Intent(getApplication(), ListaFavoritosActivity.class));
+                            startActivity(new Intent(getApplication(), AdicionarFraseActivity.class).putExtra("from", "Fav"));
                         else finish();
                         break;
                     case R.id.exit:

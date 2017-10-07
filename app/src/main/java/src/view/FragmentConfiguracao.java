@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
+
+import src.util.Util;
 
 /**
  * Created by Windows on 05/10/2017.
@@ -21,6 +24,7 @@ public class FragmentConfiguracao extends Fragment {
     private Spinner spnOriginal, spnTraducao;
     private Button btnSalvarConfigId;
     public static String idiomaOriginal = "portugues", idiomaTraducao = "ingles", codOriginal = "pt", codTraducao = "en";
+    private Util util;
 
     @Nullable
     @Override
@@ -33,7 +37,7 @@ public class FragmentConfiguracao extends Fragment {
         btnSalvarConfigId = (Button) view.findViewById(R.id.btnSalvarConfigId);
 
         String[] idiomasOriginal = new String[]{"Portugues"};
-        String[]idiomasTraducao = new String[]{"Ingles", "Alemao"};
+        String[] idiomasTraducao = new String[]{"Ingles", "Alemao"};
 
         ArrayAdapter<String> adapterOriginal = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, idiomasOriginal);
         ArrayAdapter<String> adapterTraducao = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, idiomasTraducao);
@@ -58,6 +62,8 @@ public class FragmentConfiguracao extends Fragment {
                     idiomaOriginal = "portugues";
                     codOriginal = "pt";
                 }
+
+               Toast.makeText(getActivity(), "Idiomas salvos", Toast.LENGTH_SHORT).show();
             }
         });
 
