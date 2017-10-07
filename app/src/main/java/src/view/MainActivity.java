@@ -82,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       setViewPager(0);
+        if(mViewPager.getCurrentItem() == 0) {
+            finish();
+        } else {
+            setViewPager(0);
+        }
     }
 }
