@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.parrot.parrot.R;
@@ -38,6 +41,7 @@ import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.Util;
 
+import static com.android.parrot.parrot.R.id.txtYandexId;
 import static src.view.FragmentConfiguracao.idiomaOriginal;
 import static src.view.FragmentConfiguracao.idiomaTraducao;
 
@@ -49,12 +53,19 @@ public class AdicionarFraseActivity extends AppCompatActivity {
     private Spinner spnCategoria;
     private Toolbar mActionBarToolbar;
     private Util util;
+    private TextView txtYandex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_frase);
         util = new Util();
+
+        txtYandex =(TextView)findViewById(txtYandexId);
+        txtYandex.setClickable(true);
+        txtYandex.setMovementMethod(LinkMovementMethod.getInstance());
+        String text = "<a href='http://translate.yandex.com/'> Powered by Yandex.Translate </a>";
+        txtYandex.setText(Html.fromHtml(text));
 
         btnAddFrase = (Button) findViewById(R.id.btnConfigId);
         btnTraduzir = (Button) findViewById(R.id.btnTraduzirId);
