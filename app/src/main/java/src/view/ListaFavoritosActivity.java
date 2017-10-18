@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import src.adapter.BottomNavigationViewHelper;
-import src.adapter.FraseAdapter;
+import src.adapter.FavoritoAdapter;
 import src.dao.DaoFrase;
 import src.model.Frase;
 import src.util.ItemClickSupport;
@@ -156,7 +156,7 @@ public class ListaFavoritosActivity extends AppCompatActivity {
 
         // Adiciona o adapter que irá anexar os objetos à lista.
         DaoFrase dao = new DaoFrase(this);
-        FraseAdapter adapter = new FraseAdapter(dao.getFavoritos());
+        FavoritoAdapter adapter = new FavoritoAdapter(dao.getFavoritos());
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
