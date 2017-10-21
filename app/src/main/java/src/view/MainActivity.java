@@ -1,6 +1,7 @@
 package src.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsStatePagerAdapter mSectionsStatePagerAdapter;
     private ViewPager mViewPager;
     private Util util;
+    public SharedPreferences prefs = null;
 
 
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
+        prefs = getSharedPreferences(/*"com.mycompany.myAppName"*/"com.android.parrot.parrot", MODE_PRIVATE);
         Log.d(TAG, "ON CREATE STARTED");
 
         mSectionsStatePagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
@@ -66,7 +69,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        if (prefs.getBoolean("firstRun", true)) {
+            Intent intent = new Intent(MainActivity.this, AdicionarFraseActivity.class);
+            startActivity(intent);
+            prefs.edit().putBoolean("firstRun", false).commit();
+        }
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
