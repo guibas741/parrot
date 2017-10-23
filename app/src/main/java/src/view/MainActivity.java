@@ -15,6 +15,7 @@ import com.android.parrot.parrot.R;
 
 import src.adapter.BottomNavigationViewHelper;
 import src.adapter.SectionsStatePagerAdapter;
+import src.dao.DaoFrase;
 import src.util.Util;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         if (prefs.getBoolean("firstRun", true)) {
+            DaoFrase dao = new DaoFrase(getApplicationContext());
+            dao.createTable();
             Intent intent = new Intent(MainActivity.this, AdicionarFraseActivity.class);
             startActivity(intent);
             prefs.edit().putBoolean("firstRun", false).commit();
