@@ -33,7 +33,10 @@ public class DaoFrase extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {}
+    public void onCreate(SQLiteDatabase db) {
+         //createTable();
+
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
@@ -50,7 +53,23 @@ public class DaoFrase extends SQLiteOpenHelper {
                 "idiomaTraducao TEXT NOT NULL)";
         try {
             db.execSQL(createTable);
-            return true;
+            openDB();
+            try {
+                ContentValues cv = new ContentValues();
+                cv.put("original", "ola");
+                cv.put("traducao", "hello");
+                cv.put("categoria","saude");
+                cv.put("favorito", "true");
+                cv.put("idiomaOriginal","portugues");
+                cv.put("idiomaTraducao","ingles");
+                db.insert(TABELA, null, cv);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                db.close();
+            }
         } catch(Exception e) {
             e.printStackTrace();
             return false;

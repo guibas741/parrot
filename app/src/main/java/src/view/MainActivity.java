@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences prefs = null;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
-        prefs = getSharedPreferences(/*"com.mycompany.myAppName"*/"com.android.parrot.parrot", MODE_PRIVATE);
+
+        prefs = getSharedPreferences("com.android.parrot.parrot", MODE_PRIVATE);
         Log.d(TAG, "ON CREATE STARTED");
 
         mSectionsStatePagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if (prefs.getBoolean("firstRun", true)) {
             DaoFrase dao = new DaoFrase(getApplicationContext());
+            dao.openDB();
             dao.createTable();
             Intent intent = new Intent(MainActivity.this, AdicionarFraseActivity.class);
             startActivity(intent);
