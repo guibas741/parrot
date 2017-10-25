@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
             DaoFrase dao = new DaoFrase(getApplicationContext());
             dao.openDB();
             dao.createTable();
-            Intent intent = new Intent(MainActivity.this, AdicionarFraseActivity.class);
-            startActivity(intent);
             prefs.edit().putBoolean("firstRun", false).commit();
         }
     }
