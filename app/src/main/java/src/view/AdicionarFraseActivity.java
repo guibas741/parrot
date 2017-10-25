@@ -109,7 +109,7 @@ public class AdicionarFraseActivity extends AppCompatActivity {
         });
 
 
-        String[] items = new String[]{"saude", "alimentacao", "localizacao", "comum"};
+        String[] items = new String[]{"saude", "alimentacao", "viagens", "comum"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spnCategoria.setAdapter(adapter);
 

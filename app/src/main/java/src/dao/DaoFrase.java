@@ -55,14 +55,15 @@ public class DaoFrase extends SQLiteOpenHelper {
             db.execSQL(createTable);
             openDB();
             try {
-                ContentValues cv = new ContentValues();
+                /*ContentValues cv = new ContentValues();
                 cv.put("original", "ola");
                 cv.put("traducao", "hello");
                 cv.put("categoria","saude");
                 cv.put("favorito", "true");
                 cv.put("idiomaOriginal","portugues");
                 cv.put("idiomaTraducao","ingles");
-                db.insert(TABELA, null, cv);
+                db.insert(TABELA, null, cv);*/
+                insertLoad();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -77,6 +78,14 @@ public class DaoFrase extends SQLiteOpenHelper {
             db.close();
         }
 
+    }
+
+    public void insertLoad() {
+        FirstLoad fl = new FirstLoad();
+        ArrayList<ContentValues> frases = fl.firstInsert();
+        for(int i = 0; i < frases.size(); i ++) {
+            db.insert(TABELA, null, frases.get(i));
+        }
     }
 
     public boolean insertFrase(Frase f) {

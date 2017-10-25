@@ -54,7 +54,7 @@ public class FragmentCategorias extends Fragment implements View.OnClickListener
                 categoriaSelecionada = "alimentacao";
                 break;
             case btnLocalizacaoId:
-                categoriaSelecionada = "localizacao";
+                categoriaSelecionada = "viagens";
                 break;
            /* case btnFavoritosId:
                 categoriaSelecionada = "favoritos";
