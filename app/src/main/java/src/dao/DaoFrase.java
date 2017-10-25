@@ -55,14 +55,6 @@ public class DaoFrase extends SQLiteOpenHelper {
             db.execSQL(createTable);
             openDB();
             try {
-                /*ContentValues cv = new ContentValues();
-                cv.put("original", "ola");
-                cv.put("traducao", "hello");
-                cv.put("categoria","saude");
-                cv.put("favorito", "true");
-                cv.put("idiomaOriginal","portugues");
-                cv.put("idiomaTraducao","ingles");
-                db.insert(TABELA, null, cv);*/
                 insertLoad();
                 return true;
             } catch (Exception e) {
