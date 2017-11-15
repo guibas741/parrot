@@ -63,13 +63,13 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Tradução"
+                android:text="Para favoritar selecione a frase por 3 segundos"
                 app:layout_constraintBottom_toTopOf="@+id/listaFrasesId"
-                app:layout_constraintHorizontal_bias="0.593"
+                app:layout_constraintHorizontal_bias="0.952"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/btnAudioId"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.483" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/btnAudioId"

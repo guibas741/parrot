@@ -30,7 +30,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Tradução"
+        android:text="Utilize o toque longo nas frases para favoritar"
         app:layout_constraintBottom_toTopOf="@+id/listaFrasesId"
         app:layout_constraintHorizontal_bias="0.593"
         app:layout_constraintLeft_toLeftOf="parent"
