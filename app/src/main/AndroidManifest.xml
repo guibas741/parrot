@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.parrot.parrot">
+    package="com.parrot.parrot.parrot">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,16 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="src.view.MainActivity">
+        <activity android:name="parrot.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="src.view.ListaFrasesActivity" />
-        <activity android:name="src.view.ListaFavoritosActivity" />
-        <activity android:name="src.view.AdicionarFraseActivity"></activity>
+        <activity android:name="parrot.view.ListaFrasesActivity" />
+        <activity android:name="parrot.view.ListaFavoritosActivity" />
+        <activity android:name="parrot.view.AdicionarFraseActivity"></activity>
     </application>
 
 </manifest>
